@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,17 +7,17 @@
 
   <style>
     :root{
-      --bg: #0b1020;
-      --card: rgba(255,255,255,0.08);
       --text: rgba(255,255,255,0.92);
       --muted: rgba(255,255,255,0.70);
       --line: rgba(255,255,255,0.14);
-      --ok: #38bdf8;
-      --bad: #fb7185;
-      --good: #34d399;
       --shadow: 0 20px 50px rgba(0,0,0,0.35);
       --radius: 18px;
+      --redGlow: rgba(255, 40, 70, 0.22);
+      --redGlow2: rgba(251,113,133,0.30);
+      --blueGlow: rgba(56,189,248,0.35);
+      --greenGlow: rgba(52,211,153,0.25);
     }
+
     *{ box-sizing: border-box; }
     body{
       margin:0;
@@ -29,25 +25,60 @@
       color: var(--text);
       min-height: 100vh;
       background:
-        radial-gradient(1100px 600px at 10% -10%, rgba(56,189,248,0.35), transparent 60%),
-        radial-gradient(900px 520px at 90% 10%, rgba(52,211,153,0.25), transparent 60%),
-        radial-gradient(900px 520px at 50% 110%, rgba(251,113,133,0.22), transparent 60%),
+        radial-gradient(1100px 600px at 10% -10%, var(--blueGlow), transparent 60%),
+        radial-gradient(900px 520px at 90% 10%, var(--greenGlow), transparent 60%),
+        radial-gradient(900px 520px at 70% -5%, var(--redGlow), transparent 58%),
+        radial-gradient(900px 520px at 50% 110%, var(--redGlow2), transparent 60%),
         linear-gradient(180deg, #050816, #0b1020 55%, #070a14);
       padding: 26px 16px 50px;
     }
+
     .wrap{ max-width: 1150px; margin: 0 auto; }
+
     header{
       display:flex; align-items:flex-start; justify-content:space-between;
       gap: 16px; margin-bottom: 14px;
     }
+
     .brand{ display:flex; gap:12px; align-items:center; }
-    .logo{
-      width: 44px; height: 44px; border-radius: 14px;
-      background: linear-gradient(135deg, rgba(56,189,248,0.95), rgba(52,211,153,0.85));
+
+    .logoLink{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
       box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      text-decoration: none;
+      flex-shrink: 0;
     }
+    .logoImg{
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* si tu logo es rectangular, se ve completo */
+      display:block;
+      padding: 6px; /* se ve más “premium” */
+    }
+    .logoLink:hover{
+      box-shadow: 0 0 0 4px rgba(251,113,133,0.14), 0 12px 30px rgba(0,0,0,0.35);
+      border-color: rgba(251,113,133,0.35);
+    }
+
     h1{ margin:0; font-size: 22px; letter-spacing: 0.2px; }
-    .sub{ margin: 4px 0 0; color: var(--muted); font-size: 13px; line-height: 1.35; max-width: 760px; }
+    .sub{ margin: 4px 0 0; color: var(--muted); font-size: 13px; line-height: 1.35; max-width: 780px; }
+
+    .rightHeader{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
     .pill{
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.06);
@@ -61,6 +92,7 @@
 
     @media (max-width: 900px){
       header{ flex-direction: column; align-items:flex-start; }
+      .rightHeader{ width:100%; justify-content: flex-start; }
       .pill{ width: 100%; }
     }
 
@@ -75,7 +107,7 @@
       padding: 10px 12px;
       border-radius: 999px;
       cursor:pointer;
-      font-weight: 850;
+      font-weight: 900;
       font-size: 13px;
       user-select:none;
     }
@@ -109,7 +141,7 @@
       background: rgba(255,255,255,0.03);
       flex-wrap: wrap;
     }
-    .cardTitle{ margin:0; font-size: 14px; font-weight: 900; color: rgba(255,255,255,0.88); }
+    .cardTitle{ margin:0; font-size: 14px; font-weight: 950; color: rgba(255,255,255,0.88); }
     .cardBody{ padding: 16px; }
 
     label{ display:block; font-size: 12px; color: var(--muted); margin: 10px 0 6px; }
@@ -128,8 +160,8 @@
     }
     textarea{ min-height: 88px; }
     select:focus, input:focus, textarea:focus{
-      border-color: rgba(56,189,248,0.65);
-      box-shadow: 0 0 0 4px rgba(56,189,248,0.12);
+      border-color: rgba(251,113,133,0.55);
+      box-shadow: 0 0 0 4px rgba(251,113,133,0.12);
     }
     input::placeholder, textarea::placeholder{ color: rgba(255,255,255,0.45); }
 
@@ -142,16 +174,17 @@
       border-radius: 14px;
       padding: 11px 14px;
       cursor:pointer;
-      font-weight: 900;
+      font-weight: 950;
       letter-spacing: 0.2px;
       user-select:none;
       display:inline-flex; align-items:center; justify-content:center; gap: 10px;
       transition: transform .05s ease, opacity .15s ease, filter .15s ease;
+      white-space: nowrap;
     }
     .btn:active{ transform: translateY(1px); }
 
     .btnPrimary{
-      background: linear-gradient(135deg, rgba(56,189,248,0.95), rgba(52,211,153,0.85));
+      background: linear-gradient(135deg, rgba(251,113,133,0.95), rgba(56,189,248,0.70));
       color: #081022;
       min-width: 140px;
     }
@@ -165,6 +198,7 @@
       border: 1px solid rgba(251,113,133,0.30);
       color: rgba(255,255,255,0.92);
     }
+
     .hint{ font-size: 12px; color: rgba(255,255,255,0.62); margin: 0; }
 
     .result{
@@ -189,11 +223,11 @@
     }
     .dot{
       width: 9px; height: 9px; border-radius: 50%;
-      background: var(--ok);
+      background: rgba(56,189,248,0.95);
       box-shadow: 0 0 0 4px rgba(56,189,248,0.12);
     }
     .dot.bad{
-      background: var(--bad);
+      background: rgba(251,113,133,0.95);
       box-shadow: 0 0 0 4px rgba(251,113,133,0.12);
     }
 
@@ -221,14 +255,15 @@
       border-radius: 999px;
       font-size: 12px;
       color: rgba(255,255,255,0.85);
-      font-weight: 800;
+      font-weight: 900;
     }
-    .codeStrong{ font-weight: 950; letter-spacing: 0.4px; }
+    .codeStrong{ font-weight: 1000; letter-spacing: 0.4px; }
     .muted{ color: rgba(255,255,255,0.62); font-size: 12px; }
     .desc{ margin-top: 8px; color: rgba(255,255,255,0.88); font-size: 13px; line-height: 1.35; white-space: pre-wrap; }
     .miniBtns{ display:flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
-    .miniBtn{ padding: 8px 10px; border-radius: 12px; font-size: 12px; font-weight: 900; }
+    .miniBtn{ padding: 8px 10px; border-radius: 12px; font-size: 12px; font-weight: 950; }
     .empty{ color: rgba(255,255,255,0.62); font-size: 13px; line-height: 1.35; margin: 0; }
+
     .imgThumb{
       width: 54px; height: 54px; border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.14);
@@ -240,6 +275,7 @@
       font-size: 11px;
     }
     .imgThumb img{ width:100%; height:100%; object-fit: cover; display:block; }
+
     .section{ display:none; }
     .section.active{ display:block; }
   </style>
@@ -249,21 +285,27 @@
   <div class="wrap">
     <header>
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
+        <a class="logoLink" href="#" id="homeLogo" title="Inicio">
+          <img class="logoImg" src="logo.png" alt="Logo">
+        </a>
         <div>
-          <h1>Mantenimiento</h1>
-          <p class="sub">
+          <h1 data-i18n="app_title">Mantenimiento</h1>
+          <p class="sub" data-i18n="app_sub">
             Códigos de error + Inventario por máquina. Se guarda en este navegador (por ahora).
           </p>
         </div>
       </div>
-      <div class="pill" id="statusPill">Listo ✅</div>
+
+      <div class="rightHeader">
+        <button class="btn btnGhost" id="btnLang" type="button" title="Cambiar idioma">ES / EN</button>
+        <div class="pill" id="statusPill">Listo ✅</div>
+      </div>
     </header>
 
     <div class="tabs">
-      <button class="tab active" id="tabCodes" type="button">Códigos</button>
-      <button class="tab" id="tabInv" type="button">Inventario</button>
-      <button class="tab" id="tabTools" type="button">Herramientas</button>
+      <button class="tab active" id="tabCodes" type="button" data-i18n="tab_codes">Códigos</button>
+      <button class="tab" id="tabInv" type="button" data-i18n="tab_inventory">Inventario</button>
+      <button class="tab" id="tabTools" type="button" data-i18n="tab_tools">Herramientas</button>
     </div>
 
     <!-- ===================== CÓDIGOS ===================== -->
@@ -271,65 +313,65 @@
       <div class="grid">
         <section class="card">
           <div class="cardHead">
-            <p class="cardTitle">Buscar código</p>
+            <p class="cardTitle" data-i18n="codes_search_title">Buscar código</p>
             <div class="row" style="margin:0;">
-              <button class="btn btnGhost" id="btnCodesClear" type="button">Limpiar</button>
+              <button class="btn btnGhost" id="btnCodesClear" type="button" data-i18n="clear">Limpiar</button>
             </div>
           </div>
 
           <div class="cardBody">
-            <label for="codesMachine">Máquina</label>
+            <label for="codesMachine" data-i18n="machine">Máquina</label>
             <select id="codesMachine"></select>
 
-            <label for="codesCode">Código de error</label>
-            <input id="codesCode" type="text" placeholder="Ej: E101, R404..." autocomplete="off" />
+            <label for="codesCode" data-i18n="error_code">Código de error</label>
+            <input id="codesCode" type="text" data-i18n-ph="ph_code" placeholder="Ej: E101, R404..." autocomplete="off" />
 
             <div class="row">
-              <button class="btn btnPrimary" id="btnCodesSearch" type="button">Buscar</button>
+              <button class="btn btnPrimary" id="btnCodesSearch" type="button" data-i18n="search">Buscar</button>
               <span class="hint" id="codesCountHint"></span>
             </div>
 
             <div class="result" id="codesResult">
               <div class="badge">
                 <span class="dot" id="codesDot"></span>
-                <span id="codesBadgeText">Resultado</span>
+                <span id="codesBadgeText" data-i18n="result">Resultado</span>
               </div>
 
               <div class="kvs">
-                <div class="k">Máquina</div>
+                <div class="k" data-i18n="machine">Máquina</div>
                 <div class="v" id="codesOutMachine">-</div>
 
-                <div class="k">Código</div>
+                <div class="k" data-i18n="code">Código</div>
                 <div class="v" id="codesOutCode">-</div>
 
-                <div class="k">Solución</div>
+                <div class="k" data-i18n="solution">Solución</div>
                 <div class="v" id="codesOutSolution">-</div>
               </div>
             </div>
 
             <hr style="height:1px;border:0;background:rgba(255,255,255,0.10);margin:14px 0;">
 
-            <p class="hint">Guardar nuevo código (o actualizar uno existente).</p>
+            <p class="hint" data-i18n="codes_save_help">Guardar nuevo código (o actualizar uno existente).</p>
 
-            <label for="codesMachineSave">Máquina</label>
+            <label for="codesMachineSave" data-i18n="machine">Máquina</label>
             <select id="codesMachineSave"></select>
 
             <div class="row2">
               <div>
-                <label for="codesCodeSave">Código</label>
-                <input id="codesCodeSave" type="text" placeholder="Ej: E303" autocomplete="off" />
+                <label for="codesCodeSave" data-i18n="code">Código</label>
+                <input id="codesCodeSave" type="text" data-i18n-ph="ph_code_only" placeholder="Ej: E303" autocomplete="off" />
               </div>
               <div>
                 <label>&nbsp;</label>
-                <button class="btn btnGhost" id="btnCodesLoad" type="button" style="width:100%;">Cargar si existe</button>
+                <button class="btn btnGhost" id="btnCodesLoad" type="button" style="width:100%;" data-i18n="load_if_exists">Cargar si existe</button>
               </div>
             </div>
 
-            <label for="codesSolutionSave">Solución</label>
-            <textarea id="codesSolutionSave" placeholder="Escribe la solución aquí..."></textarea>
+            <label for="codesSolutionSave" data-i18n="solution">Solución</label>
+            <textarea id="codesSolutionSave" data-i18n-ph="ph_solution" placeholder="Escribe la solución aquí..."></textarea>
 
             <div class="row">
-              <button class="btn btnPrimary" id="btnCodesSave" type="button">Guardar</button>
+              <button class="btn btnPrimary" id="btnCodesSave" type="button" data-i18n="save">Guardar</button>
             </div>
 
             <p class="hint" id="codesSaveHint"></p>
@@ -338,12 +380,12 @@
 
         <aside class="card">
           <div class="cardHead">
-            <p class="cardTitle">Recientes</p>
-            <span class="hint">Acceso rápido</span>
+            <p class="cardTitle" data-i18n="recent">Recientes</p>
+            <span class="hint" data-i18n="quick_access">Acceso rápido</span>
           </div>
           <div class="cardBody">
             <ul class="list" id="codesRecentList"></ul>
-            <p class="empty" id="codesEmptyRecent">Todavía nada. Busca o guarda un código.</p>
+            <p class="empty" id="codesEmptyRecent" data-i18n="codes_empty_recent">Todavía nada. Busca o guarda un código.</p>
           </div>
         </aside>
       </div>
@@ -354,21 +396,21 @@
       <div class="grid">
         <section class="card">
           <div class="cardHead">
-            <p class="cardTitle">Inventario por máquina</p>
+            <p class="cardTitle" data-i18n="inv_title">Inventario por máquina</p>
             <div class="row" style="margin:0;">
-              <button class="btn btnGhost" id="btnInvClear" type="button">Limpiar</button>
+              <button class="btn btnGhost" id="btnInvClear" type="button" data-i18n="clear">Limpiar</button>
             </div>
           </div>
 
           <div class="cardBody">
             <div class="row2">
               <div>
-                <label for="invFilterMachine">Filtrar por máquina</label>
+                <label for="invFilterMachine" data-i18n="filter_machine">Filtrar por máquina</label>
                 <select id="invFilterMachine"></select>
               </div>
               <div>
-                <label for="invSearch">Buscar (nombre o # parte)</label>
-                <input id="invSearch" type="text" placeholder="Ej: bearing, sensor, 123-ABC..." autocomplete="off" />
+                <label for="invSearch" data-i18n="search_name_part">Buscar (nombre o # parte)</label>
+                <input id="invSearch" type="text" data-i18n-ph="ph_search_part" placeholder="Ej: bearing, sensor, 123-ABC..." autocomplete="off" />
               </div>
             </div>
 
@@ -378,42 +420,44 @@
 
             <hr style="height:1px;border:0;background:rgba(255,255,255,0.10);margin:14px 0;">
 
-            <p class="hint">Agregar / actualizar pieza (si usas el mismo #Parte en la misma máquina, te lo actualiza).</p>
+            <p class="hint" data-i18n="inv_help">
+              Agregar / actualizar pieza (si usas el mismo #Parte en la misma máquina, te lo actualiza).
+            </p>
 
-            <label for="invMachine">Máquina</label>
+            <label for="invMachine" data-i18n="machine">Máquina</label>
             <select id="invMachine"></select>
 
             <div class="row2">
               <div>
-                <label for="invName">Nombre de la pieza</label>
-                <input id="invName" type="text" placeholder="Ej: Sensor proximidad" />
+                <label for="invName" data-i18n="part_name">Nombre de la pieza</label>
+                <input id="invName" type="text" data-i18n-ph="ph_part_name" placeholder="Ej: Sensor proximidad" />
               </div>
               <div>
-                <label for="invPartNo"># Parte (opcional pero recomendado)</label>
-                <input id="invPartNo" type="text" placeholder="Ej: PNP-1234" />
+                <label for="invPartNo" data-i18n="part_number"># Parte (opcional pero recomendado)</label>
+                <input id="invPartNo" type="text" data-i18n-ph="ph_part_number" placeholder="Ej: PNP-1234" />
               </div>
             </div>
 
             <div class="row2">
               <div>
-                <label for="invQty">Cantidad</label>
-                <input id="invQty" type="number" min="0" step="1" placeholder="Ej: 3" />
+                <label for="invQty" data-i18n="quantity">Cantidad</label>
+                <input id="invQty" type="number" min="0" step="1" data-i18n-ph="ph_qty" placeholder="Ej: 3" />
               </div>
               <div>
-                <label for="invLocation">Ubicación</label>
-                <input id="invLocation" type="text" placeholder="Ej: Rack A3 / Taller" />
+                <label for="invLocation" data-i18n="location">Ubicación</label>
+                <input id="invLocation" type="text" data-i18n-ph="ph_location" placeholder="Ej: Rack A3 / Taller" />
               </div>
             </div>
 
-            <label for="invPhotoUrl">Foto (URL por ahora)</label>
-            <input id="invPhotoUrl" type="text" placeholder="Pega un link de la foto (después lo hacemos subida real)" />
+            <label for="invPhotoUrl" data-i18n="photo_url">Foto (URL por ahora)</label>
+            <input id="invPhotoUrl" type="text" data-i18n-ph="ph_photo" placeholder="Pega un link de la foto (después lo hacemos subida real)" />
 
-            <label for="invDesc">Descripción / notas</label>
-            <textarea id="invDesc" placeholder="Compatibilidad, para qué sirve, advertencias, etc."></textarea>
+            <label for="invDesc" data-i18n="description_notes">Descripción / notas</label>
+            <textarea id="invDesc" data-i18n-ph="ph_desc" placeholder="Compatibilidad, para qué sirve, advertencias, etc."></textarea>
 
             <div class="row">
-              <button class="btn btnPrimary" id="btnInvSave" type="button">Guardar pieza</button>
-              <button class="btn btnGhost" id="btnInvLoad" type="button">Cargar si existe</button>
+              <button class="btn btnPrimary" id="btnInvSave" type="button" data-i18n="save_part">Guardar pieza</button>
+              <button class="btn btnGhost" id="btnInvLoad" type="button" data-i18n="load_if_exists">Cargar si existe</button>
             </div>
 
             <p class="hint" id="invSaveHint"></p>
@@ -422,12 +466,12 @@
 
         <aside class="card">
           <div class="cardHead">
-            <p class="cardTitle">Lista de piezas</p>
-            <span class="hint">Editar / borrar</span>
+            <p class="cardTitle" data-i18n="parts_list">Lista de piezas</p>
+            <span class="hint" data-i18n="edit_delete">Editar / borrar</span>
           </div>
           <div class="cardBody">
             <ul class="list" id="invList"></ul>
-            <p class="empty" id="invEmpty">No hay piezas todavía. Agrega la primera 👇</p>
+            <p class="empty" id="invEmpty" data-i18n="inv_empty">No hay piezas todavía. Agrega la primera 👇</p>
           </div>
         </aside>
       </div>
@@ -438,29 +482,29 @@
       <div class="grid">
         <section class="card">
           <div class="cardHead">
-            <p class="cardTitle">Herramientas</p>
-            <span class="hint">Mantenimiento de datos (local)</span>
+            <p class="cardTitle" data-i18n="tools_title">Herramientas</p>
+            <span class="hint" data-i18n="tools_sub">Mantenimiento de datos (local)</span>
           </div>
           <div class="cardBody">
-            <p class="hint" style="line-height:1.5;">
+            <p class="hint" style="line-height:1.5;" data-i18n="tools_note">
               Por ahora todo se guarda en este navegador (localStorage). Cuando la empresa lo apruebe,
               lo conectamos a base de datos para multi-dispositivo y usuarios.
             </p>
 
             <div class="row">
-              <button class="btn btnDanger" id="btnResetAll" type="button">Reset total (borra lo guardado)</button>
+              <button class="btn btnDanger" id="btnResetAll" type="button" data-i18n="reset_all">Reset total (borra lo guardado)</button>
             </div>
 
             <div class="result show" style="margin-top:14px;">
               <div class="kvs">
-                <div class="k">Códigos guardados</div>
+                <div class="k" data-i18n="codes_saved">Códigos guardados</div>
                 <div class="v" id="toolsCodesCount">-</div>
 
-                <div class="k">Piezas de inventario</div>
+                <div class="k" data-i18n="inventory_parts">Piezas de inventario</div>
                 <div class="v" id="toolsInvCount">-</div>
 
-                <div class="k">Nota</div>
-                <div class="v">Fotos: por ahora solo URL (luego subida real).</div>
+                <div class="k" data-i18n="note">Nota</div>
+                <div class="v" data-i18n="photos_note">Fotos: por ahora solo URL (luego subida real).</div>
               </div>
             </div>
           </div>
@@ -468,8 +512,8 @@
 
         <aside class="card">
           <div class="cardHead">
-            <p class="cardTitle">Tips</p>
-            <span class="hint">Para que no se te vaya</span>
+            <p class="cardTitle" data-i18n="tips">Tips</p>
+            <span class="hint" data-i18n="so_you_remember">Para que no se te vaya</span>
           </div>
           <div class="cardBody">
             <ul class="list">
@@ -477,18 +521,18 @@
                 <div class="itemLeft">
                   <div class="itemTopLine">
                     <span class="pillMini">LocalStorage</span>
-                    <span class="muted">Datos en esta PC</span>
+                    <span class="muted" data-i18n="local_only">Datos en esta PC</span>
                   </div>
-                  <div class="desc">Si cambias de computadora/navegador, no se ven los mismos datos (todavía).</div>
+                  <div class="desc" data-i18n="local_only_desc">Si cambias de computadora/navegador, no se ven los mismos datos (todavía).</div>
                 </div>
               </li>
               <li class="item">
                 <div class="itemLeft">
                   <div class="itemTopLine">
-                    <span class="pillMini">Siguiente nivel</span>
-                    <span class="muted">Multi-dispositivo</span>
+                    <span class="pillMini" data-i18n="next_level">Siguiente nivel</span>
+                    <span class="muted" data-i18n="multi_device">Multi-dispositivo</span>
                   </div>
-                  <div class="desc">Cuando lo pidan: login + historial + fotos con base de datos (Firebase/Supabase).</div>
+                  <div class="desc" data-i18n="next_level_desc">Cuando lo pidan: login + historial + fotos con base de datos (Firebase/Supabase).</div>
                 </div>
               </li>
             </ul>
@@ -499,7 +543,241 @@
   </div>
 
   <script>
-    // ===================== CONFIG =====================
+    // ===================== i18n =====================
+    const I18N = {
+      es: {
+        app_title: "Mantenimiento",
+        app_sub: "Códigos de error + Inventario por máquina. Se guarda en este navegador (por ahora).",
+        tab_codes: "Códigos",
+        tab_inventory: "Inventario",
+        tab_tools: "Herramientas",
+
+        clear: "Limpiar",
+        search: "Buscar",
+        save: "Guardar",
+        result: "Resultado",
+        machine: "Máquina",
+        error_code: "Código de error",
+        code: "Código",
+        solution: "Solución",
+        recent: "Recientes",
+        quick_access: "Acceso rápido",
+        load_if_exists: "Cargar si existe",
+
+        ph_code: "Ej: E101, R404...",
+        ph_code_only: "Ej: E303",
+        ph_solution: "Escribe la solución aquí...",
+
+        codes_search_title: "Buscar código",
+        codes_save_help: "Guardar nuevo código (o actualizar uno existente).",
+        codes_empty_recent: "Todavía nada. Busca o guarda un código.",
+
+        inv_title: "Inventario por máquina",
+        filter_machine: "Filtrar por máquina",
+        search_name_part: "Buscar (nombre o # parte)",
+        inv_help: "Agregar / actualizar pieza (si usas el mismo #Parte en la misma máquina, te lo actualiza).",
+        part_name: "Nombre de la pieza",
+        part_number: "# Parte (opcional pero recomendado)",
+        quantity: "Cantidad",
+        location: "Ubicación",
+        photo_url: "Foto (URL por ahora)",
+        description_notes: "Descripción / notas",
+        save_part: "Guardar pieza",
+        parts_list: "Lista de piezas",
+        edit_delete: "Editar / borrar",
+        inv_empty: "No hay piezas todavía. Agrega la primera 👇",
+
+        ph_search_part: "Ej: bearing, sensor, 123-ABC...",
+        ph_part_name: "Ej: Sensor proximidad",
+        ph_part_number: "Ej: PNP-1234",
+        ph_qty: "Ej: 3",
+        ph_location: "Ej: Rack A3 / Taller",
+        ph_photo: "Pega un link de la foto (después lo hacemos subida real)",
+        ph_desc: "Compatibilidad, para qué sirve, advertencias, etc.",
+
+        tools_title: "Herramientas",
+        tools_sub: "Mantenimiento de datos (local)",
+        tools_note: "Por ahora todo se guarda en este navegador (localStorage). Cuando la empresa lo apruebe, lo conectamos a base de datos para multi-dispositivo y usuarios.",
+        reset_all: "Reset total (borra lo guardado)",
+        codes_saved: "Códigos guardados",
+        inventory_parts: "Piezas de inventario",
+        note: "Nota",
+        photos_note: "Fotos: por ahora solo URL (luego subida real).",
+        tips: "Tips",
+        so_you_remember: "Para que no se te vaya",
+        local_only: "Datos en esta PC",
+        local_only_desc: "Si cambias de computadora/navegador, no se ven los mismos datos (todavía).",
+        next_level: "Siguiente nivel",
+        multi_device: "Multi-dispositivo",
+        next_level_desc: "Cuando lo pidan: login + historial + fotos con base de datos (Firebase/Supabase).",
+
+        all: "Todas",
+
+        // runtime messages
+        pill_codes: "Códigos ✅",
+        pill_inv: "Inventario ✅",
+        pill_tools: "Herramientas ✅",
+        pill_ready: "Listo ✅",
+        pill_found: "Encontrado ✅",
+        pill_not_found: "No encontrado ⚠️",
+        pill_saved: "Guardado ✅",
+        pill_deleted: "Borrado 🗑️",
+        pill_editing: "Editando ✍️",
+        pill_loaded: "Cargado ✍️",
+
+        found: "Encontrado ✅",
+        not_found: "No encontrado ❌",
+        no_solution: "No hay solución guardada para ese código (todavía).",
+
+        hint_codes_count: (n) => `Códigos guardados aquí: ${n}`,
+        hint_inv_count: (shown, total) => `Piezas mostradas: ${shown} (Total guardadas: ${total})`,
+
+        inv_saved_new: "Guardado ✅ (pieza nueva).",
+        inv_updated: "Actualizado ✅ (ya existía por #Parte).",
+        inv_need_name: "Falta el nombre de la pieza.",
+        inv_need_qty: "Cantidad inválida. Usa un número (0 o más).",
+        inv_need_partno_to_load: "Pon un #Parte primero para cargar.",
+        inv_not_found_part: "No encontré esa pieza con ese #Parte en esa máquina.",
+        inv_loaded: "Listo: cargué esa pieza. Edita y guarda.",
+
+        codes_need_code: "Escribe un código 👀",
+        codes_need_code_save: "Falta el código.",
+        codes_need_sol_save: "Falta la solución.",
+        codes_loaded: "Listo: cargué la solución existente. Edita y guarda.",
+        codes_not_exist: "Ese código no existe todavía en esa máquina.",
+        codes_saved_new: "Guardado ✅",
+        codes_saved_update: "Actualizado ✅",
+
+        confirm_delete_code: (code, mach) => `¿Borrar ${code} de ${mach}?`,
+        confirm_delete_part: (name, mach) => `¿Borrar "${name}" de ${mach}?`,
+        confirm_reset: "Esto borra TODO lo guardado en este navegador. ¿Seguro?",
+        reset_done: "Listo. Se borró lo guardado y volvió a los datos base.",
+
+        edit: "Editar",
+        delete: "Borrar",
+        qty_label: "Qty",
+        pn_label: "PN",
+        no_photo: "sin foto",
+        location_label: "Ubicación",
+      },
+
+      en: {
+        app_title: "Maintenance",
+        app_sub: "Error codes + Machine inventory. Saved in this browser (for now).",
+        tab_codes: "Codes",
+        tab_inventory: "Inventory",
+        tab_tools: "Tools",
+
+        clear: "Clear",
+        search: "Search",
+        save: "Save",
+        result: "Result",
+        machine: "Machine",
+        error_code: "Error code",
+        code: "Code",
+        solution: "Solution",
+        recent: "Recent",
+        quick_access: "Quick access",
+        load_if_exists: "Load if exists",
+
+        ph_code: "Ex: E101, R404...",
+        ph_code_only: "Ex: E303",
+        ph_solution: "Write the solution here...",
+
+        codes_search_title: "Search code",
+        codes_save_help: "Save a new code (or update an existing one).",
+        codes_empty_recent: "Nothing yet. Search or save a code.",
+
+        inv_title: "Inventory by machine",
+        filter_machine: "Filter by machine",
+        search_name_part: "Search (name or part #)",
+        inv_help: "Add / update a part (same Part # on the same machine will be updated).",
+        part_name: "Part name",
+        part_number: "Part # (optional but recommended)",
+        quantity: "Quantity",
+        location: "Location",
+        photo_url: "Photo (URL for now)",
+        description_notes: "Description / notes",
+        save_part: "Save part",
+        parts_list: "Parts list",
+        edit_delete: "Edit / delete",
+        inv_empty: "No parts yet. Add the first one 👇",
+
+        ph_search_part: "Ex: bearing, sensor, 123-ABC...",
+        ph_part_name: "Ex: Proximity sensor",
+        ph_part_number: "Ex: PNP-1234",
+        ph_qty: "Ex: 3",
+        ph_location: "Ex: Rack A3 / Shop",
+        ph_photo: "Paste a photo link (later we’ll support uploads)",
+        ph_desc: "Compatibility, purpose, warnings, etc.",
+
+        tools_title: "Tools",
+        tools_sub: "Data maintenance (local)",
+        tools_note: "For now everything is stored in this browser (localStorage). When the company approves it, we’ll connect a database for multi-device and users.",
+        reset_all: "Full reset (delete saved data)",
+        codes_saved: "Saved codes",
+        inventory_parts: "Inventory parts",
+        note: "Note",
+        photos_note: "Photos: URL only for now (uploads later).",
+        tips: "Tips",
+        so_you_remember: "So you don’t forget",
+        local_only: "Data on this PC",
+        local_only_desc: "If you change computer/browser, you won’t see the same data (yet).",
+        next_level: "Next level",
+        multi_device: "Multi-device",
+        next_level_desc: "When requested: login + history + photos with a database (Firebase/Supabase).",
+
+        all: "All",
+
+        pill_codes: "Codes ✅",
+        pill_inv: "Inventory ✅",
+        pill_tools: "Tools ✅",
+        pill_ready: "Ready ✅",
+        pill_found: "Found ✅",
+        pill_not_found: "Not found ⚠️",
+        pill_saved: "Saved ✅",
+        pill_deleted: "Deleted 🗑️",
+        pill_editing: "Editing ✍️",
+        pill_loaded: "Loaded ✍️",
+
+        found: "Found ✅",
+        not_found: "Not found ❌",
+        no_solution: "No saved solution for that code (yet).",
+
+        hint_codes_count: (n) => `Codes saved here: ${n}`,
+        hint_inv_count: (shown, total) => `Parts shown: ${shown} (Total saved: ${total})`,
+
+        inv_saved_new: "Saved ✅ (new part).",
+        inv_updated: "Updated ✅ (matched by Part #).",
+        inv_need_name: "Part name is required.",
+        inv_need_qty: "Invalid quantity. Use a number (0 or more).",
+        inv_need_partno_to_load: "Enter a Part # first to load.",
+        inv_not_found_part: "No part found with that Part # on this machine.",
+        inv_loaded: "Loaded. Edit and save.",
+
+        codes_need_code: "Type a code 👀",
+        codes_need_code_save: "Code is required.",
+        codes_need_sol_save: "Solution is required.",
+        codes_loaded: "Loaded existing solution. Edit and save.",
+        codes_not_exist: "That code doesn’t exist on this machine yet.",
+        codes_saved_new: "Saved ✅",
+        codes_saved_update: "Updated ✅",
+
+        confirm_delete_code: (code, mach) => `Delete ${code} from ${mach}?`,
+        confirm_delete_part: (name, mach) => `Delete "${name}" from ${mach}?`,
+        confirm_reset: "This deletes ALL saved data in this browser. Are you sure?",
+        reset_done: "Done. Data cleared and restored to defaults.",
+
+        edit: "Edit",
+        delete: "Delete",
+        qty_label: "Qty",
+        pn_label: "PN",
+        no_photo: "no photo",
+        location_label: "Location",
+      }
+    };
+
+    // ===================== CONFIG / DATA =====================
     const MACHINES = [
       { key:"mega", label:"Mega Slicer" },
       { key:"repak", label:"Repak" },
@@ -512,6 +790,7 @@
     ];
 
     const STORAGE_KEY = "maint_app_v1";
+    const LANG_KEY = "maint_lang_v1";
 
     const baseState = {
       codes: {
@@ -519,10 +798,7 @@
         repak: { R404: "Error de sellado" },
         cashin: {}, supervac: {}, metaldetector: {}, alkar: {}, mixer5000: {}, mixer2500: {}
       },
-      inventory: [
-        // ejemplo:
-        // { id:"...", machineKey:"mega", name:"Sensor proximidad", partNo:"PNP-123", qty:3, location:"Rack A3", photoUrl:"", desc:"..." }
-      ]
+      inventory: []
     };
 
     function deepClone(x){ return JSON.parse(JSON.stringify(x)); }
@@ -532,9 +808,8 @@
         const raw = localStorage.getItem(STORAGE_KEY);
         if(!raw) return deepClone(baseState);
         const parsed = JSON.parse(raw);
-
-        // merge seguro
         const st = deepClone(baseState);
+
         if(parsed.codes && typeof parsed.codes === "object"){
           for(const m of Object.keys(st.codes)){
             if(parsed.codes[m] && typeof parsed.codes[m] === "object") st.codes[m] = parsed.codes[m];
@@ -562,11 +837,7 @@
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
     }
-
-    function uid(){
-      return Math.random().toString(16).slice(2) + "-" + Date.now().toString(16);
-    }
-
+    function uid(){ return Math.random().toString(16).slice(2) + "-" + Date.now().toString(16); }
     function machineLabel(key){
       const m = MACHINES.find(x => x.key === key);
       return m ? m.label : key;
@@ -577,7 +848,7 @@
       if(includeAll){
         const opt = document.createElement("option");
         opt.value = "ALL";
-        opt.textContent = "Todas";
+        opt.textContent = t("all");
         selectEl.appendChild(opt);
       }
       for(const m of MACHINES){
@@ -586,6 +857,42 @@
         opt.textContent = m.label;
         selectEl.appendChild(opt);
       }
+    }
+
+    // ===================== LANGUAGE =====================
+    let currentLang = (localStorage.getItem(LANG_KEY) || "es");
+    if(!I18N[currentLang]) currentLang = "es";
+
+    function t(key){
+      const dict = I18N[currentLang] || I18N.es;
+      return dict[key] ?? (I18N.es[key] ?? key);
+    }
+
+    function applyLanguage(){
+      document.documentElement.lang = currentLang;
+
+      // text content
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const k = el.getAttribute("data-i18n");
+        el.textContent = t(k);
+      });
+
+      // placeholders
+      document.querySelectorAll("[data-i18n-ph]").forEach(el => {
+        const k = el.getAttribute("data-i18n-ph");
+        el.setAttribute("placeholder", t(k));
+      });
+
+      // refresh dynamic bits
+      updateCodesHint();
+      renderInventoryList();
+      renderCodesRecent();
+      refreshToolsCounts();
+
+      // also update pill based on active section
+      if(sectionCodes.classList.contains("active")) setPill(t("pill_codes"));
+      if(sectionInv.classList.contains("active")) setPill(t("pill_inv"));
+      if(sectionTools.classList.contains("active")) setPill(t("pill_tools"));
     }
 
     // ===================== TABS =====================
@@ -598,22 +905,36 @@
     const sectionTools = document.getElementById("sectionTools");
 
     const statusPill = document.getElementById("statusPill");
-    function setPill(t){ statusPill.textContent = t; }
+    function setPill(txt){ statusPill.textContent = txt; }
 
     function setActiveTab(which){
-      for(const t of [tabCodes, tabInv, tabTools]) t.classList.remove("active");
-      for(const s of [sectionCodes, sectionInv, sectionTools]) s.classList.remove("active");
+      for(const tbtn of [tabCodes, tabInv, tabTools]) tbtn.classList.remove("active");
+      for(const sec of [sectionCodes, sectionInv, sectionTools]) sec.classList.remove("active");
 
-      if(which === "codes"){ tabCodes.classList.add("active"); sectionCodes.classList.add("active"); setPill("Códigos ✅"); }
-      if(which === "inv"){ tabInv.classList.add("active"); sectionInv.classList.add("active"); setPill("Inventario ✅"); renderInventoryList(); }
-      if(which === "tools"){ tabTools.classList.add("active"); sectionTools.classList.add("active"); setPill("Herramientas ✅"); refreshToolsCounts(); }
+      if(which === "codes"){ tabCodes.classList.add("active"); sectionCodes.classList.add("active"); setPill(t("pill_codes")); }
+      if(which === "inv"){ tabInv.classList.add("active"); sectionInv.classList.add("active"); setPill(t("pill_inv")); renderInventoryList(); }
+      if(which === "tools"){ tabTools.classList.add("active"); sectionTools.classList.add("active"); setPill(t("pill_tools")); refreshToolsCounts(); }
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     tabCodes.addEventListener("click", () => setActiveTab("codes"));
     tabInv.addEventListener("click", () => setActiveTab("inv"));
     tabTools.addEventListener("click", () => setActiveTab("tools"));
 
-    // ===================== CÓDIGOS (UI) =====================
+    // logo to home + codes
+    document.getElementById("homeLogo").addEventListener("click", (e) => {
+      e.preventDefault();
+      setActiveTab("codes");
+    });
+
+    // language toggle
+    document.getElementById("btnLang").addEventListener("click", () => {
+      currentLang = (currentLang === "es") ? "en" : "es";
+      localStorage.setItem(LANG_KEY, currentLang);
+      applyLanguage();
+    });
+
+    // ===================== CÓDIGOS =====================
     const codesMachine = document.getElementById("codesMachine");
     const codesCode = document.getElementById("codesCode");
     const btnCodesSearch = document.getElementById("btnCodesSearch");
@@ -641,7 +962,7 @@
     function updateCodesHint(){
       const m = codesMachine.value;
       const count = Object.keys(state.codes[m] || {}).length;
-      codesCountHint.textContent = `Códigos guardados aquí: ${count}`;
+      codesCountHint.textContent = t("hint_codes_count")(count);
     }
 
     function showCodesResult(ok, machineKey, code, solution){
@@ -651,14 +972,14 @@
 
       if(ok){
         codesDot.classList.remove("bad");
-        codesBadgeText.textContent = "Encontrado ✅";
+        codesBadgeText.textContent = t("found");
         codesOutSolution.textContent = solution;
-        setPill("Encontrado ✅");
+        setPill(t("pill_found"));
       }else{
         codesDot.classList.add("bad");
-        codesBadgeText.textContent = "No encontrado ❌";
-        codesOutSolution.textContent = "No hay solución guardada para ese código (todavía).";
-        setPill("No encontrado ⚠️");
+        codesBadgeText.textContent = t("not_found");
+        codesOutSolution.textContent = t("no_solution");
+        setPill(t("pill_not_found"));
       }
     }
 
@@ -685,11 +1006,11 @@
               <span class="codeStrong">${escapeHtml(it.code)} ${it.ok ? "✅" : "❌"}</span>
               <span class="pillMini">${escapeHtml(machineLabel(it.machineKey))}</span>
             </div>
-            <div class="desc">${escapeHtml(it.ok ? it.solution : "Sin solución guardada")}</div>
+            <div class="desc">${escapeHtml(it.ok ? it.solution : t("no_solution"))}</div>
           </div>
           <div class="miniBtns">
-            <button class="btn btnGhost miniBtn" data-action="edit" data-machine="${escapeHtml(it.machineKey)}" data-code="${escapeHtml(it.code)}">Editar</button>
-            <button class="btn btnDanger miniBtn" data-action="del" data-machine="${escapeHtml(it.machineKey)}" data-code="${escapeHtml(it.code)}">Borrar</button>
+            <button class="btn btnGhost miniBtn" data-action="edit" data-machine="${escapeHtml(it.machineKey)}" data-code="${escapeHtml(it.code)}">${escapeHtml(t("edit"))}</button>
+            <button class="btn btnDanger miniBtn" data-action="del" data-machine="${escapeHtml(it.machineKey)}" data-code="${escapeHtml(it.code)}">${escapeHtml(t("delete"))}</button>
           </div>
         `;
         codesRecentList.appendChild(li);
@@ -700,7 +1021,7 @@
       const machineKey = codesMachine.value;
       const code = codesCode.value.trim().toUpperCase();
       if(!code){
-        setPill("Escribe un código 👀");
+        setPill(t("codes_need_code"));
         codesResult.classList.remove("show");
         codesCode.focus();
         return;
@@ -722,7 +1043,7 @@
       codesCode.value = "";
       codesResult.classList.remove("show");
       codesSaveHint.textContent = "";
-      setPill("Códigos ✅");
+      setPill(t("pill_codes"));
       codesCode.focus();
     }
 
@@ -730,17 +1051,17 @@
       const m = codesMachineSave.value;
       const code = codesCodeSave.value.trim().toUpperCase();
       if(!code){
-        codesSaveHint.textContent = "Pon un código primero.";
+        codesSaveHint.textContent = t("codes_need_code_save");
         return;
       }
       const map = state.codes[m] || {};
       if(map[code]){
         codesSolutionSave.value = map[code];
-        codesSaveHint.textContent = "Listo: cargué la solución existente. Edita y guarda.";
-        setPill("Cargado ✍️");
+        codesSaveHint.textContent = t("codes_loaded");
+        setPill(t("pill_loaded"));
       }else{
-        codesSaveHint.textContent = "Ese código no existe todavía en esa máquina.";
-        setPill("No existe ⚠️");
+        codesSaveHint.textContent = t("codes_not_exist");
+        setPill(t("pill_not_found"));
       }
     }
 
@@ -749,8 +1070,8 @@
       const code = codesCodeSave.value.trim().toUpperCase();
       const sol = codesSolutionSave.value.trim();
 
-      if(!code){ codesSaveHint.textContent = "Falta el código."; codesCodeSave.focus(); return; }
-      if(!sol){ codesSaveHint.textContent = "Falta la solución."; codesSolutionSave.focus(); return; }
+      if(!code){ codesSaveHint.textContent = t("codes_need_code_save"); codesCodeSave.focus(); return; }
+      if(!sol){ codesSaveHint.textContent = t("codes_need_sol_save"); codesSolutionSave.focus(); return; }
 
       if(!state.codes[m]) state.codes[m] = {};
       const existed = !!state.codes[m][code];
@@ -758,27 +1079,28 @@
       saveState();
       updateCodesHint();
 
-      codesSaveHint.textContent = existed ? "Actualizado ✅" : "Guardado ✅";
-      setPill("Guardado ✅");
+      codesSaveHint.textContent = existed ? t("codes_saved_update") : t("codes_saved_new");
+      setPill(t("pill_saved"));
       addCodesRecent({ ok:true, machineKey:m, code, solution: sol });
     }
 
     function codesDelete(machineKey, code){
       const map = state.codes[machineKey] || {};
       if(!map[code]) return;
-      if(!confirm(`¿Borrar ${code} de ${machineLabel(machineKey)}?`)) return;
+      if(!confirm(t("confirm_delete_code")(code, machineLabel(machineKey)))) return;
       delete map[code];
       saveState();
       updateCodesHint();
-      setPill("Borrado 🗑️");
+      setPill(t("pill_deleted"));
       codesResult.classList.remove("show");
-      renderCodesRecent(); // deja los recientes como estén; si quieres, luego limpiamos coincidencias
+      renderCodesRecent();
     }
 
     function codesEdit(machineKey, code){
       codesMachineSave.value = machineKey;
       codesCodeSave.value = code;
       codesLoadExisting();
+      setPill(t("pill_editing"));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -797,7 +1119,7 @@
     btnCodesLoad.addEventListener("click", codesLoadExisting);
     btnCodesSave.addEventListener("click", codesSave);
     codesCode.addEventListener("keydown", (e) => { if(e.key === "Enter") codesSearch(); });
-    codesMachine.addEventListener("change", () => { updateCodesHint(); setPill("Códigos ✅"); codesResult.classList.remove("show"); });
+    codesMachine.addEventListener("change", () => { updateCodesHint(); setPill(t("pill_codes")); codesResult.classList.remove("show"); });
 
     // ===================== INVENTARIO =====================
     const invFilterMachine = document.getElementById("invFilterMachine");
@@ -828,7 +1150,7 @@
       invPhotoUrl.value = "";
       invDesc.value = "";
       invSaveHint.textContent = "";
-      setPill("Inventario ✅");
+      setPill(t("pill_inv"));
       invName.focus();
     }
 
@@ -842,7 +1164,7 @@
       const m = invMachine.value;
       const pn = invPartNo.value.trim();
       if(!pn){
-        invSaveHint.textContent = "Pon un #Parte primero para cargar.";
+        invSaveHint.textContent = t("inv_need_partno_to_load");
         return;
       }
       const item = invFindExisting(m, pn);
@@ -852,11 +1174,11 @@
         invLocation.value = item.location || "";
         invPhotoUrl.value = item.photoUrl || "";
         invDesc.value = item.desc || "";
-        invSaveHint.textContent = "Listo: cargué esa pieza. Edita y guarda.";
-        setPill("Cargado ✍️");
+        invSaveHint.textContent = t("inv_loaded");
+        setPill(t("pill_loaded"));
       }else{
-        invSaveHint.textContent = "No encontré esa pieza con ese #Parte en esa máquina.";
-        setPill("No existe ⚠️");
+        invSaveHint.textContent = t("inv_not_found_part");
+        setPill(t("pill_not_found"));
       }
     }
 
@@ -871,15 +1193,14 @@
       const desc = invDesc.value.trim();
 
       if(!name){
-        invSaveHint.textContent = "Falta el nombre de la pieza.";
+        invSaveHint.textContent = t("inv_need_name");
         invName.focus(); return;
       }
       if(!Number.isFinite(qty) || qty < 0){
-        invSaveHint.textContent = "Cantidad inválida. Usa un número (0 o más).";
+        invSaveHint.textContent = t("inv_need_qty");
         invQty.focus(); return;
       }
 
-      // Si hay #Parte: actualiza por (máquina + #parte). Si no hay #parte, crea nuevo siempre.
       let existing = null;
       if(partNo) existing = invFindExisting(machineKey, partNo);
 
@@ -889,7 +1210,7 @@
         existing.location = location;
         existing.photoUrl = photoUrl;
         existing.desc = desc;
-        invSaveHint.textContent = "Actualizado ✅ (ya existía por #Parte).";
+        invSaveHint.textContent = t("inv_updated");
       }else{
         state.inventory.push({
           id: uid(),
@@ -901,23 +1222,23 @@
           photoUrl,
           desc
         });
-        invSaveHint.textContent = "Guardado ✅ (pieza nueva).";
+        invSaveHint.textContent = t("inv_saved_new");
       }
 
       saveState();
       renderInventoryList();
-      setPill("Guardado ✅");
+      setPill(t("pill_saved"));
     }
 
     function invDelete(id){
       const idx = state.inventory.findIndex(x => x.id === id);
       if(idx < 0) return;
       const it = state.inventory[idx];
-      if(!confirm(`¿Borrar "${it.name}" de ${machineLabel(it.machineKey)}?`)) return;
+      if(!confirm(t("confirm_delete_part")(it.name, machineLabel(it.machineKey)))) return;
       state.inventory.splice(idx, 1);
       saveState();
       renderInventoryList();
-      setPill("Borrado 🗑️");
+      setPill(t("pill_deleted"));
     }
 
     function invEdit(id){
@@ -930,8 +1251,8 @@
       invLocation.value = it.location || "";
       invPhotoUrl.value = it.photoUrl || "";
       invDesc.value = it.desc || "";
-      invSaveHint.textContent = "Editando: cambia y dale Guardar pieza.";
-      setPill("Editando ✍️");
+      invSaveHint.textContent = t("inv_loaded");
+      setPill(t("pill_editing"));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -959,7 +1280,7 @@
 
       invList.innerHTML = "";
       invEmpty.style.display = items.length ? "none" : "block";
-      invCountHint.textContent = `Piezas mostradas: ${items.length} (Total guardadas: ${state.inventory.length})`;
+      invCountHint.textContent = t("hint_inv_count")(items.length, state.inventory.length);
 
       for(const it of items){
         const li = document.createElement("li");
@@ -968,9 +1289,9 @@
         const thumb = document.createElement("div");
         thumb.className = "imgThumb";
         if(it.photoUrl){
-          thumb.innerHTML = `<img src="${escapeHtml(it.photoUrl)}" alt="foto pieza">`;
+          thumb.innerHTML = `<img src="${escapeHtml(it.photoUrl)}" alt="photo">`;
         }else{
-          thumb.textContent = "sin foto";
+          thumb.textContent = t("no_photo");
         }
 
         const left = document.createElement("div");
@@ -978,19 +1299,19 @@
         left.innerHTML = `
           <div class="itemTopLine">
             <span class="pillMini">${escapeHtml(machineLabel(it.machineKey))}</span>
-            <span class="pillMini">Qty: ${escapeHtml(it.qty)}</span>
-            ${it.partNo ? `<span class="pillMini">PN: ${escapeHtml(it.partNo)}</span>` : ``}
+            <span class="pillMini">${escapeHtml(t("qty_label"))}: ${escapeHtml(it.qty)}</span>
+            ${it.partNo ? `<span class="pillMini">${escapeHtml(t("pn_label"))}: ${escapeHtml(it.partNo)}</span>` : ``}
           </div>
           <div class="desc"><span class="codeStrong">${escapeHtml(it.name)}</span></div>
-          <div class="muted">${it.location ? `Ubicación: ${escapeHtml(it.location)}` : `Ubicación: (sin)`}</div>
+          <div class="muted">${escapeHtml(t("location_label"))}: ${it.location ? escapeHtml(it.location) : "(—)"}</div>
           ${it.desc ? `<div class="desc">${escapeHtml(it.desc)}</div>` : ``}
         `;
 
         const btns = document.createElement("div");
         btns.className = "miniBtns";
         btns.innerHTML = `
-          <button class="btn btnGhost miniBtn" data-action="edit" data-id="${escapeHtml(it.id)}">Editar</button>
-          <button class="btn btnDanger miniBtn" data-action="del" data-id="${escapeHtml(it.id)}">Borrar</button>
+          <button class="btn btnGhost miniBtn" data-action="edit" data-id="${escapeHtml(it.id)}">${escapeHtml(t("edit"))}</button>
+          <button class="btn btnDanger miniBtn" data-action="del" data-id="${escapeHtml(it.id)}">${escapeHtml(t("delete"))}</button>
         `;
 
         li.appendChild(thumb);
@@ -1012,7 +1333,6 @@
     btnInvSave.addEventListener("click", invSave);
     btnInvLoad.addEventListener("click", invLoadExisting);
     btnInvClear.addEventListener("click", invClearForm);
-
     invFilterMachine.addEventListener("change", renderInventoryList);
     invSearch.addEventListener("input", renderInventoryList);
 
@@ -1035,27 +1355,24 @@
     }
 
     btnResetAll.addEventListener("click", () => {
-      if(!confirm("Esto borra TODO lo guardado en este navegador. ¿Seguro?")) return;
+      if(!confirm(t("confirm_reset"))) return;
       localStorage.removeItem(STORAGE_KEY);
       state = loadState();
-      // reset UI
       codesRecent.length = 0;
       renderCodesRecent();
       renderInventoryList();
       updateCodesHint();
       refreshToolsCounts();
       setPill("Reset ✅");
-      alert("Listo. Se borró lo guardado y volvió a los datos base.");
+      alert(t("reset_done"));
     });
 
     // ===================== INIT =====================
-    // llenar selects de máquinas
     fillMachineSelect(codesMachine);
     fillMachineSelect(codesMachineSave);
     fillMachineSelect(invMachine);
     fillMachineSelect(invFilterMachine, true);
 
-    // default selections
     codesMachine.value = "mega";
     codesMachineSave.value = "mega";
     invMachine.value = "mega";
@@ -1065,7 +1382,13 @@
     renderCodesRecent();
     renderInventoryList();
     refreshToolsCounts();
-    setPill("Códigos ✅");
+    applyLanguage();
+    setPill(t("pill_codes"));
   </script>
 </body>
 </html>
+
+
+
+
+
