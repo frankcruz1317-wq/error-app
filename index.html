@@ -114,6 +114,431 @@
       align-items:center;
       justify-content:space-between;
       gap: 12px;
-      background: rg
+      background: rgba(255,255,255,0.03);
+    }
+
+    .cardTitle{
+      margin:0;
+      font-size: 14px;
+      color: rgba(255,255,255,0.88);
+      font-weight: 700;
+    }
+
+    .cardBody{
+      padding: 16px;
+    }
+
+    label{
+      display:block;
+      font-size: 12px;
+      color: var(--muted);
+      margin: 10px 0 6px;
+    }
+
+    select, input{
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      outline: none;
+      transition: 0.18s;
+    }
+
+    select:focus, input:focus{
+      border-color: rgba(56,189,248,0.65);
+      box-shadow: 0 0 0 4px rgba(56,189,248,0.12);
+    }
+
+    input::placeholder{ color: rgba(255,255,255,0.45); }
+
+    .row{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn{
+      appearance:none;
+      border: 0;
+      border-radius: 14px;
+      padding: 11px 14px;
+      cursor:pointer;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      transition: transform .05s ease, filter .15s ease, opacity .15s ease;
+      user-select:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+    }
+
+    .btn:active{ transform: translateY(1px); }
+
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(56,189,248,0.95), rgba(52,211,153,0.85));
+      color: #081022;
+      min-width: 150px;
+    }
+
+    .btnGhost{
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--text);
+    }
+
+    .hint{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.62);
+    }
+
+    .result{
+      margin-top: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      padding: 14px;
+      display:none;
+    }
+
+    .result.show{ display:block; }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 10px;
+    }
+
+    .dot{
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 4px rgba(56,189,248,0.12);
+    }
+
+    .dot.bad{
+      background: var(--bad);
+      box-shadow: 0 0 0 4px rgba(251,113,133,0.12);
+    }
+
+    .kvs{
+      display:grid;
+      grid-template-columns: 110px 1fr;
+      gap: 10px 12px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .k{ color: rgba(255,255,255,0.60); }
+    .v{ color: rgba(255,255,255,0.92); font-weight: 600; }
+
+    .sideList{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .item{
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .itemTop{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      align-items:flex-start;
+      margin-bottom: 6px;
+    }
+
+    .itemCode{
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .itemMachine{
+      color: rgba(255,255,255,0.62);
+      font-size: 12px;
+    }
+
+    .itemSol{
+      color: rgba(255,255,255,0.88);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .empty{
+      color: rgba(255,255,255,0.62);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Códigos de Error de Máquinas</h1>
+          <p class="sub">
+            Busca un código por máquina y te devuelve la solución. Rápido, sin drama.
+            Tip: escribe el código y presiona <b>Enter</b>.
+          </p>
+        </div>
+      </div>
+      <div class="pill" id="statusPill">Listo para buscar ✅</div>
+    </header>
+
+    <div class="grid">
+      <!-- BUSCADOR -->
+      <section class="card">
+        <div class="cardHead">
+          <p class="cardTitle">Buscador</p>
+          <button class="btn btnGhost" id="btnLimpiar" type="button">Limpiar</button>
+        </div>
+
+        <div class="cardBody">
+          <label for="machine">Máquina</label>
+          <select id="machine">
+            <option value="mega">Mega Slicer</option>
+            <option value="repak">Repak</option>
+            <option value="cashin">Cashin</option>
+            <option value="supervac">Super Vac</option>
+            <option value="metaldetector">Metal Detector</option>
+            <option value="alkar">Alkar</option>
+            <option value="mixer5000">Mixer 5000</option>
+            <option value="mixer2500">Mixer 2500</option>
+          </select>
+
+          <label for="code">Código de error</label>
+          <input type="text" id="code" placeholder="Ejemplo: E101, R404, etc." autocomplete="off" />
+
+          <div class="row">
+            <button class="btn btnPrimary" id="btnBuscar" type="button">Buscar</button>
+            <span class="hint" id="hintCount"></span>
+          </div>
+
+          <div class="result" id="result">
+            <div class="badge" id="badge">
+              <span class="dot" id="dot"></span>
+              <span id="badgeText">Resultado</span>
+            </div>
+
+            <div class="kvs">
+              <div class="k">Máquina</div>
+              <div class="v" id="outMachine">-</div>
+
+              <div class="k">Código</div>
+              <div class="v" id="outCode">-</div>
+
+              <div class="k">Solución</div>
+              <div class="v" id="outSolution">-</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ÚLTIMOS RESULTADOS -->
+      <aside class="card">
+        <div class="cardHead">
+          <p class="cardTitle">Últimos resultados</p>
+          <span class="hint">Se guardan aquí (solo en esta sesión)</span>
+        </div>
+        <div class="cardBody">
+          <ul class="sideList" id="recentList"></ul>
+          <p class="empty" id="emptyRecent">Todavía no has buscado nada. Meté un código y dale 🔎</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    // ====== DATOS (aquí vas metiendo códigos por máquina) ======
+    const data = {
+      mega: {
+        E101: "Sensor de cuchilla desconectado",
+        E202: "Motor sobrecalentado"
+      },
+      repak: {
+        R404: "Error de sellado"
+      },
+      cashin: {},
+      supervac: {},
+      metaldetector: {},
+      alkar: {},
+      mixer5000: {},
+      mixer2500: {}
+    };
+
+    // ====== Helpers UI ======
+    const machineSelect = document.getElementById("machine");
+    const codeInput = document.getElementById("code");
+    const btnBuscar = document.getElementById("btnBuscar");
+    const btnLimpiar = document.getElementById("btnLimpiar");
+
+    const resultBox = document.getElementById("result");
+    const outMachine = document.getElementById("outMachine");
+    const outCode = document.getElementById("outCode");
+    const outSolution = document.getElementById("outSolution");
+
+    const badge = document.getElementById("badge");
+    const badgeText = document.getElementById("badgeText");
+    const dot = document.getElementById("dot");
+
+    const statusPill = document.getElementById("statusPill");
+    const hintCount = document.getElementById("hintCount");
+
+    const recentList = document.getElementById("recentList");
+    const emptyRecent = document.getElementById("emptyRecent");
+
+    const recent = []; // últimos resultados (en memoria)
+
+    function getMachineName(value){
+      const opt = machineSelect.querySelector(`option[value="${value}"]`);
+      return opt ? opt.textContent.trim() : value;
+    }
+
+    function setPill(text){
+      statusPill.textContent = text;
+    }
+
+    function updateHint(){
+      const m = machineSelect.value;
+      const count = data[m] ? Object.keys(data[m]).length : 0;
+      hintCount.textContent = `Códigos guardados en esta máquina: ${count}`;
+    }
+
+    function showResult({ ok, machine, code, solution }){
+      resultBox.classList.add("show");
+      outMachine.textContent = machine;
+      outCode.textContent = code;
+
+      if (ok){
+        dot.classList.remove("bad");
+        badgeText.textContent = "Encontrado ✅";
+        outSolution.textContent = solution;
+        setPill("Listo ✅ Encontrado");
+      } else {
+        dot.classList.add("bad");
+        badgeText.textContent = "No encontrado ❌";
+        outSolution.textContent = "No hay solución guardada para ese código (todavía).";
+        setPill("Listo ⚠️ No encontrado");
+      }
+    }
+
+    function addRecent({ ok, machine, code, solution }){
+      recent.unshift({ ok, machine, code, solution });
+      if (recent.length > 6) recent.pop();
+      renderRecent();
+    }
+
+    function renderRecent(){
+      recentList.innerHTML = "";
+      if (recent.length === 0){
+        emptyRecent.style.display = "block";
+        return;
+      }
+      emptyRecent.style.display = "none";
+
+      for (const item of recent){
+        const li = document.createElement("li");
+        li.className = "item";
+        li.innerHTML = `
+          <div class="itemTop">
+            <div>
+              <div class="itemCode">${escapeHtml(item.code)} ${item.ok ? "✅" : "❌"}</div>
+              <div class="itemMachine">${escapeHtml(item.machine)}</div>
+            </div>
+          </div>
+          <div class="itemSol">${escapeHtml(item.ok ? item.solution : "Sin solución guardada")}</div>
+        `;
+        recentList.appendChild(li);
+      }
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    // ====== Buscar ======
+    function searchCode(){
+      const machineKey = machineSelect.value;
+      const machineName = getMachineName(machineKey);
+
+      const raw = codeInput.value.trim();
+      const code = raw.toUpperCase();
+
+      if (!code){
+        setPill("Escribe un código 👀");
+        resultBox.classList.remove("show");
+        codeInput.focus();
+        return;
+      }
+
+      const found = !!(data[machineKey] && data[machineKey][code]);
+      if (found){
+        const solution = data[machineKey][code];
+        showResult({ ok: true, machine: machineName, code, solution });
+        addRecent({ ok: true, machine: machineName, code, solution });
+      } else {
+        showResult({ ok: false, machine: machineName, code, solution: "" });
+        addRecent({ ok: false, machine: machineName, code, solution: "" });
+      }
+    }
+
+    function clearAll(){
+      codeInput.value = "";
+      resultBox.classList.remove("show");
+      setPill("Listo para buscar ✅");
+      codeInput.focus();
+    }
+
+    // ====== Eventos ======
+    btnBuscar.addEventListener("click", searchCode);
+    btnLimpiar.addEventListener("click", clearAll);
+
+    codeInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") searchCode();
+    });
+
+    machineSelect.addEventListener("change", () => {
+      updateHint();
+      setPill("Listo para buscar ✅");
+      resultBox.classList.remove("show");
+    });
+
+    // ====== Init ======
+    updateHint();
+    renderRecent();
+    setPill("Listo para buscar ✅");
+  </script>
+</body>
+</html>
+
 
 
