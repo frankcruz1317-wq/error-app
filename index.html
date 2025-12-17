@@ -1,15 +1,18 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Códigos de Error de Máquinas</title>
+  <title>Mantenimiento | Códigos + Inventario</title>
 
   <style>
     :root{
       --bg: #0b1020;
       --card: rgba(255,255,255,0.08);
-      --card2: rgba(255,255,255,0.12);
       --text: rgba(255,255,255,0.92);
       --muted: rgba(255,255,255,0.70);
       --line: rgba(255,255,255,0.14);
@@ -19,7 +22,6 @@
       --shadow: 0 20px 50px rgba(0,0,0,0.35);
       --radius: 18px;
     }
-
     *{ box-sizing: border-box; }
     body{
       margin:0;
@@ -33,48 +35,19 @@
         linear-gradient(180deg, #050816, #0b1020 55%, #070a14);
       padding: 26px 16px 50px;
     }
-
-    .wrap{
-      max-width: 980px;
-      margin: 0 auto;
-    }
-
+    .wrap{ max-width: 1150px; margin: 0 auto; }
     header{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 16px;
-      margin-bottom: 16px;
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap: 16px; margin-bottom: 14px;
     }
-
-    .brand{
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
-
+    .brand{ display:flex; gap:12px; align-items:center; }
     .logo{
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
+      width: 44px; height: 44px; border-radius: 14px;
       background: linear-gradient(135deg, rgba(56,189,248,0.95), rgba(52,211,153,0.85));
       box-shadow: 0 10px 25px rgba(0,0,0,0.35);
     }
-
-    h1{
-      margin: 0;
-      font-size: 22px;
-      letter-spacing: 0.2px;
-    }
-
-    .sub{
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.35;
-      max-width: 560px;
-    }
-
+    h1{ margin:0; font-size: 22px; letter-spacing: 0.2px; }
+    .sub{ margin: 4px 0 0; color: var(--muted); font-size: 13px; line-height: 1.35; max-width: 760px; }
     .pill{
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.06);
@@ -86,56 +59,62 @@
       height: fit-content;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    @media (max-width: 860px){
+    @media (max-width: 900px){
       header{ flex-direction: column; align-items:flex-start; }
-      .grid{ grid-template-columns: 1fr; }
       .pill{ width: 100%; }
     }
 
+    .tabs{
+      display:flex; gap:10px; flex-wrap: wrap;
+      margin: 12px 0 14px;
+    }
+    .tab{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 999px;
+      cursor:pointer;
+      font-weight: 850;
+      font-size: 13px;
+      user-select:none;
+    }
+    .tab.active{
+      background: linear-gradient(135deg, rgba(56,189,248,0.95), rgba(52,211,153,0.85));
+      color: #081022;
+      border-color: transparent;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 14px;
+      margin-top: 10px;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
     .card{
-      background: var(--card);
-      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
     }
-
     .cardHead{
-      padding: 16px 16px 10px;
+      padding: 14px 16px 10px;
       border-bottom: 1px solid rgba(255,255,255,0.10);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
+      display:flex; align-items:center; justify-content:space-between; gap: 10px;
       background: rgba(255,255,255,0.03);
+      flex-wrap: wrap;
     }
+    .cardTitle{ margin:0; font-size: 14px; font-weight: 900; color: rgba(255,255,255,0.88); }
+    .cardBody{ padding: 16px; }
 
-    .cardTitle{
-      margin:0;
-      font-size: 14px;
-      color: rgba(255,255,255,0.88);
-      font-weight: 700;
-    }
+    label{ display:block; font-size: 12px; color: var(--muted); margin: 10px 0 6px; }
 
-    .cardBody{
-      padding: 16px;
-    }
-
-    label{
-      display:block;
-      font-size: 12px;
-      color: var(--muted);
-      margin: 10px 0 6px;
-    }
-
-    select, input{
+    select, input, textarea{
       width: 100%;
       padding: 11px 12px;
       border-radius: 14px;
@@ -144,58 +123,49 @@
       color: var(--text);
       outline: none;
       transition: 0.18s;
+      resize: vertical;
+      min-height: 42px;
     }
-
-    select:focus, input:focus{
+    textarea{ min-height: 88px; }
+    select:focus, input:focus, textarea:focus{
       border-color: rgba(56,189,248,0.65);
       box-shadow: 0 0 0 4px rgba(56,189,248,0.12);
     }
+    input::placeholder, textarea::placeholder{ color: rgba(255,255,255,0.45); }
 
-    input::placeholder{ color: rgba(255,255,255,0.45); }
-
-    .row{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
+    .row{ display:flex; gap: 10px; align-items:center; margin-top: 12px; flex-wrap: wrap; }
+    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 620px){ .row2{ grid-template-columns: 1fr; } }
 
     .btn{
-      appearance:none;
-      border: 0;
+      appearance:none; border: 0;
       border-radius: 14px;
       padding: 11px 14px;
       cursor:pointer;
-      font-weight: 700;
+      font-weight: 900;
       letter-spacing: 0.2px;
-      transition: transform .05s ease, filter .15s ease, opacity .15s ease;
       user-select:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 10px;
+      display:inline-flex; align-items:center; justify-content:center; gap: 10px;
+      transition: transform .05s ease, opacity .15s ease, filter .15s ease;
     }
-
     .btn:active{ transform: translateY(1px); }
 
     .btnPrimary{
       background: linear-gradient(135deg, rgba(56,189,248,0.95), rgba(52,211,153,0.85));
       color: #081022;
-      min-width: 150px;
+      min-width: 140px;
     }
-
     .btnGhost{
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.14);
       color: var(--text);
     }
-
-    .hint{
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(255,255,255,0.62);
+    .btnDanger{
+      background: rgba(251,113,133,0.14);
+      border: 1px solid rgba(251,113,133,0.30);
+      color: rgba(255,255,255,0.92);
     }
+    .hint{ font-size: 12px; color: rgba(255,255,255,0.62); margin: 0; }
 
     .result{
       margin-top: 14px;
@@ -205,13 +175,10 @@
       padding: 14px;
       display:none;
     }
-
     .result.show{ display:block; }
 
     .badge{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
+      display:inline-flex; align-items:center; gap: 8px;
       border-radius: 999px;
       padding: 6px 10px;
       font-size: 12px;
@@ -220,76 +187,61 @@
       color: rgba(255,255,255,0.85);
       margin-bottom: 10px;
     }
-
     .dot{
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
+      width: 9px; height: 9px; border-radius: 50%;
       background: var(--ok);
       box-shadow: 0 0 0 4px rgba(56,189,248,0.12);
     }
-
     .dot.bad{
       background: var(--bad);
       box-shadow: 0 0 0 4px rgba(251,113,133,0.12);
     }
 
-    .kvs{
-      display:grid;
-      grid-template-columns: 110px 1fr;
-      gap: 10px 12px;
-      font-size: 13px;
-      line-height: 1.35;
-    }
-
+    .kvs{ display:grid; grid-template-columns: 120px 1fr; gap: 10px 12px; font-size: 13px; line-height: 1.35; }
     .k{ color: rgba(255,255,255,0.60); }
-    .v{ color: rgba(255,255,255,0.92); font-weight: 600; }
+    .v{ color: rgba(255,255,255,0.92); font-weight: 650; }
 
-    .sideList{
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display:flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
+    .list{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap: 10px; }
     .item{
       padding: 12px;
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,0.14);
       background: rgba(255,255,255,0.06);
-    }
-
-    .itemTop{
       display:flex;
-      justify-content:space-between;
       gap: 10px;
+      justify-content: space-between;
       align-items:flex-start;
-      margin-bottom: 6px;
     }
-
-    .itemCode{
-      font-weight: 900;
-      letter-spacing: 0.5px;
-    }
-
-    .itemMachine{
-      color: rgba(255,255,255,0.62);
+    .itemLeft{ min-width: 0; }
+    .itemTopLine{ display:flex; gap: 10px; flex-wrap: wrap; align-items:baseline; }
+    .pillMini{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      padding: 5px 9px;
+      border-radius: 999px;
       font-size: 12px;
+      color: rgba(255,255,255,0.85);
+      font-weight: 800;
     }
-
-    .itemSol{
-      color: rgba(255,255,255,0.88);
-      font-size: 13px;
-      line-height: 1.35;
+    .codeStrong{ font-weight: 950; letter-spacing: 0.4px; }
+    .muted{ color: rgba(255,255,255,0.62); font-size: 12px; }
+    .desc{ margin-top: 8px; color: rgba(255,255,255,0.88); font-size: 13px; line-height: 1.35; white-space: pre-wrap; }
+    .miniBtns{ display:flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
+    .miniBtn{ padding: 8px 10px; border-radius: 12px; font-size: 12px; font-weight: 900; }
+    .empty{ color: rgba(255,255,255,0.62); font-size: 13px; line-height: 1.35; margin: 0; }
+    .imgThumb{
+      width: 54px; height: 54px; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      overflow:hidden;
+      flex-shrink: 0;
+      display:flex; align-items:center; justify-content:center;
+      color: rgba(255,255,255,0.55);
+      font-size: 11px;
     }
-
-    .empty{
-      color: rgba(255,255,255,0.62);
-      font-size: 13px;
-      line-height: 1.35;
-    }
+    .imgThumb img{ width:100%; height:100%; object-fit: cover; display:block; }
+    .section{ display:none; }
+    .section.active{ display:block; }
   </style>
 </head>
 
@@ -299,181 +251,307 @@
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <h1>Códigos de Error de Máquinas</h1>
+          <h1>Mantenimiento</h1>
           <p class="sub">
-            Busca un código por máquina y te devuelve la solución. Rápido, sin drama.
-            Tip: escribe el código y presiona <b>Enter</b>.
+            Códigos de error + Inventario por máquina. Se guarda en este navegador (por ahora).
           </p>
         </div>
       </div>
-      <div class="pill" id="statusPill">Listo para buscar ✅</div>
+      <div class="pill" id="statusPill">Listo ✅</div>
     </header>
 
-    <div class="grid">
-      <!-- BUSCADOR -->
-      <section class="card">
-        <div class="cardHead">
-          <p class="cardTitle">Buscador</p>
-          <button class="btn btnGhost" id="btnLimpiar" type="button">Limpiar</button>
-        </div>
-
-        <div class="cardBody">
-          <label for="machine">Máquina</label>
-          <select id="machine">
-            <option value="mega">Mega Slicer</option>
-            <option value="repak">Repak</option>
-            <option value="cashin">Cashin</option>
-            <option value="supervac">Super Vac</option>
-            <option value="metaldetector">Metal Detector</option>
-            <option value="alkar">Alkar</option>
-            <option value="mixer5000">Mixer 5000</option>
-            <option value="mixer2500">Mixer 2500</option>
-          </select>
-
-          <label for="code">Código de error</label>
-          <input type="text" id="code" placeholder="Ejemplo: E101, R404, etc." autocomplete="off" />
-
-          <div class="row">
-            <button class="btn btnPrimary" id="btnBuscar" type="button">Buscar</button>
-            <span class="hint" id="hintCount"></span>
-          </div>
-
-          <div class="result" id="result">
-            <div class="badge" id="badge">
-              <span class="dot" id="dot"></span>
-              <span id="badgeText">Resultado</span>
-            </div>
-
-            <div class="kvs">
-              <div class="k">Máquina</div>
-              <div class="v" id="outMachine">-</div>
-
-              <div class="k">Código</div>
-              <div class="v" id="outCode">-</div>
-
-              <div class="k">Solución</div>
-              <div class="v" id="outSolution">-</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ÚLTIMOS RESULTADOS -->
-      <aside class="card">
-        <div class="cardHead">
-          <p class="cardTitle">Últimos resultados</p>
-          <span class="hint">Se guardan aquí (solo en esta sesión)</span>
-        </div>
-        <div class="cardBody">
-          <ul class="sideList" id="recentList"></ul>
-          <p class="empty" id="emptyRecent">Todavía no has buscado nada. Meté un código y dale 🔎</p>
-        </div>
-      </aside>
+    <div class="tabs">
+      <button class="tab active" id="tabCodes" type="button">Códigos</button>
+      <button class="tab" id="tabInv" type="button">Inventario</button>
+      <button class="tab" id="tabTools" type="button">Herramientas</button>
     </div>
+
+    <!-- ===================== CÓDIGOS ===================== -->
+    <section class="section active" id="sectionCodes">
+      <div class="grid">
+        <section class="card">
+          <div class="cardHead">
+            <p class="cardTitle">Buscar código</p>
+            <div class="row" style="margin:0;">
+              <button class="btn btnGhost" id="btnCodesClear" type="button">Limpiar</button>
+            </div>
+          </div>
+
+          <div class="cardBody">
+            <label for="codesMachine">Máquina</label>
+            <select id="codesMachine"></select>
+
+            <label for="codesCode">Código de error</label>
+            <input id="codesCode" type="text" placeholder="Ej: E101, R404..." autocomplete="off" />
+
+            <div class="row">
+              <button class="btn btnPrimary" id="btnCodesSearch" type="button">Buscar</button>
+              <span class="hint" id="codesCountHint"></span>
+            </div>
+
+            <div class="result" id="codesResult">
+              <div class="badge">
+                <span class="dot" id="codesDot"></span>
+                <span id="codesBadgeText">Resultado</span>
+              </div>
+
+              <div class="kvs">
+                <div class="k">Máquina</div>
+                <div class="v" id="codesOutMachine">-</div>
+
+                <div class="k">Código</div>
+                <div class="v" id="codesOutCode">-</div>
+
+                <div class="k">Solución</div>
+                <div class="v" id="codesOutSolution">-</div>
+              </div>
+            </div>
+
+            <hr style="height:1px;border:0;background:rgba(255,255,255,0.10);margin:14px 0;">
+
+            <p class="hint">Guardar nuevo código (o actualizar uno existente).</p>
+
+            <label for="codesMachineSave">Máquina</label>
+            <select id="codesMachineSave"></select>
+
+            <div class="row2">
+              <div>
+                <label for="codesCodeSave">Código</label>
+                <input id="codesCodeSave" type="text" placeholder="Ej: E303" autocomplete="off" />
+              </div>
+              <div>
+                <label>&nbsp;</label>
+                <button class="btn btnGhost" id="btnCodesLoad" type="button" style="width:100%;">Cargar si existe</button>
+              </div>
+            </div>
+
+            <label for="codesSolutionSave">Solución</label>
+            <textarea id="codesSolutionSave" placeholder="Escribe la solución aquí..."></textarea>
+
+            <div class="row">
+              <button class="btn btnPrimary" id="btnCodesSave" type="button">Guardar</button>
+            </div>
+
+            <p class="hint" id="codesSaveHint"></p>
+          </div>
+        </section>
+
+        <aside class="card">
+          <div class="cardHead">
+            <p class="cardTitle">Recientes</p>
+            <span class="hint">Acceso rápido</span>
+          </div>
+          <div class="cardBody">
+            <ul class="list" id="codesRecentList"></ul>
+            <p class="empty" id="codesEmptyRecent">Todavía nada. Busca o guarda un código.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================== INVENTARIO ===================== -->
+    <section class="section" id="sectionInv">
+      <div class="grid">
+        <section class="card">
+          <div class="cardHead">
+            <p class="cardTitle">Inventario por máquina</p>
+            <div class="row" style="margin:0;">
+              <button class="btn btnGhost" id="btnInvClear" type="button">Limpiar</button>
+            </div>
+          </div>
+
+          <div class="cardBody">
+            <div class="row2">
+              <div>
+                <label for="invFilterMachine">Filtrar por máquina</label>
+                <select id="invFilterMachine"></select>
+              </div>
+              <div>
+                <label for="invSearch">Buscar (nombre o # parte)</label>
+                <input id="invSearch" type="text" placeholder="Ej: bearing, sensor, 123-ABC..." autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="row">
+              <span class="hint" id="invCountHint"></span>
+            </div>
+
+            <hr style="height:1px;border:0;background:rgba(255,255,255,0.10);margin:14px 0;">
+
+            <p class="hint">Agregar / actualizar pieza (si usas el mismo #Parte en la misma máquina, te lo actualiza).</p>
+
+            <label for="invMachine">Máquina</label>
+            <select id="invMachine"></select>
+
+            <div class="row2">
+              <div>
+                <label for="invName">Nombre de la pieza</label>
+                <input id="invName" type="text" placeholder="Ej: Sensor proximidad" />
+              </div>
+              <div>
+                <label for="invPartNo"># Parte (opcional pero recomendado)</label>
+                <input id="invPartNo" type="text" placeholder="Ej: PNP-1234" />
+              </div>
+            </div>
+
+            <div class="row2">
+              <div>
+                <label for="invQty">Cantidad</label>
+                <input id="invQty" type="number" min="0" step="1" placeholder="Ej: 3" />
+              </div>
+              <div>
+                <label for="invLocation">Ubicación</label>
+                <input id="invLocation" type="text" placeholder="Ej: Rack A3 / Taller" />
+              </div>
+            </div>
+
+            <label for="invPhotoUrl">Foto (URL por ahora)</label>
+            <input id="invPhotoUrl" type="text" placeholder="Pega un link de la foto (después lo hacemos subida real)" />
+
+            <label for="invDesc">Descripción / notas</label>
+            <textarea id="invDesc" placeholder="Compatibilidad, para qué sirve, advertencias, etc."></textarea>
+
+            <div class="row">
+              <button class="btn btnPrimary" id="btnInvSave" type="button">Guardar pieza</button>
+              <button class="btn btnGhost" id="btnInvLoad" type="button">Cargar si existe</button>
+            </div>
+
+            <p class="hint" id="invSaveHint"></p>
+          </div>
+        </section>
+
+        <aside class="card">
+          <div class="cardHead">
+            <p class="cardTitle">Lista de piezas</p>
+            <span class="hint">Editar / borrar</span>
+          </div>
+          <div class="cardBody">
+            <ul class="list" id="invList"></ul>
+            <p class="empty" id="invEmpty">No hay piezas todavía. Agrega la primera 👇</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================== HERRAMIENTAS ===================== -->
+    <section class="section" id="sectionTools">
+      <div class="grid">
+        <section class="card">
+          <div class="cardHead">
+            <p class="cardTitle">Herramientas</p>
+            <span class="hint">Mantenimiento de datos (local)</span>
+          </div>
+          <div class="cardBody">
+            <p class="hint" style="line-height:1.5;">
+              Por ahora todo se guarda en este navegador (localStorage). Cuando la empresa lo apruebe,
+              lo conectamos a base de datos para multi-dispositivo y usuarios.
+            </p>
+
+            <div class="row">
+              <button class="btn btnDanger" id="btnResetAll" type="button">Reset total (borra lo guardado)</button>
+            </div>
+
+            <div class="result show" style="margin-top:14px;">
+              <div class="kvs">
+                <div class="k">Códigos guardados</div>
+                <div class="v" id="toolsCodesCount">-</div>
+
+                <div class="k">Piezas de inventario</div>
+                <div class="v" id="toolsInvCount">-</div>
+
+                <div class="k">Nota</div>
+                <div class="v">Fotos: por ahora solo URL (luego subida real).</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="card">
+          <div class="cardHead">
+            <p class="cardTitle">Tips</p>
+            <span class="hint">Para que no se te vaya</span>
+          </div>
+          <div class="cardBody">
+            <ul class="list">
+              <li class="item">
+                <div class="itemLeft">
+                  <div class="itemTopLine">
+                    <span class="pillMini">LocalStorage</span>
+                    <span class="muted">Datos en esta PC</span>
+                  </div>
+                  <div class="desc">Si cambias de computadora/navegador, no se ven los mismos datos (todavía).</div>
+                </div>
+              </li>
+              <li class="item">
+                <div class="itemLeft">
+                  <div class="itemTopLine">
+                    <span class="pillMini">Siguiente nivel</span>
+                    <span class="muted">Multi-dispositivo</span>
+                  </div>
+                  <div class="desc">Cuando lo pidan: login + historial + fotos con base de datos (Firebase/Supabase).</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
   </div>
 
   <script>
-    // ====== DATOS (aquí vas metiendo códigos por máquina) ======
-    const data = {
-      mega: {
-        E101: "Sensor de cuchilla desconectado",
-        E202: "Motor sobrecalentado"
+    // ===================== CONFIG =====================
+    const MACHINES = [
+      { key:"mega", label:"Mega Slicer" },
+      { key:"repak", label:"Repak" },
+      { key:"cashin", label:"Cashin" },
+      { key:"supervac", label:"Super Vac" },
+      { key:"metaldetector", label:"Metal Detector" },
+      { key:"alkar", label:"Alkar" },
+      { key:"mixer5000", label:"Mixer 5000" },
+      { key:"mixer2500", label:"Mixer 2500" },
+    ];
+
+    const STORAGE_KEY = "maint_app_v1";
+
+    const baseState = {
+      codes: {
+        mega: { E101: "Sensor de cuchilla desconectado", E202: "Motor sobrecalentado" },
+        repak: { R404: "Error de sellado" },
+        cashin: {}, supervac: {}, metaldetector: {}, alkar: {}, mixer5000: {}, mixer2500: {}
       },
-      repak: {
-        R404: "Error de sellado"
-      },
-      cashin: {},
-      supervac: {},
-      metaldetector: {},
-      alkar: {},
-      mixer5000: {},
-      mixer2500: {}
+      inventory: [
+        // ejemplo:
+        // { id:"...", machineKey:"mega", name:"Sensor proximidad", partNo:"PNP-123", qty:3, location:"Rack A3", photoUrl:"", desc:"..." }
+      ]
     };
 
-    // ====== Helpers UI ======
-    const machineSelect = document.getElementById("machine");
-    const codeInput = document.getElementById("code");
-    const btnBuscar = document.getElementById("btnBuscar");
-    const btnLimpiar = document.getElementById("btnLimpiar");
+    function deepClone(x){ return JSON.parse(JSON.stringify(x)); }
 
-    const resultBox = document.getElementById("result");
-    const outMachine = document.getElementById("outMachine");
-    const outCode = document.getElementById("outCode");
-    const outSolution = document.getElementById("outSolution");
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if(!raw) return deepClone(baseState);
+        const parsed = JSON.parse(raw);
 
-    const badge = document.getElementById("badge");
-    const badgeText = document.getElementById("badgeText");
-    const dot = document.getElementById("dot");
-
-    const statusPill = document.getElementById("statusPill");
-    const hintCount = document.getElementById("hintCount");
-
-    const recentList = document.getElementById("recentList");
-    const emptyRecent = document.getElementById("emptyRecent");
-
-    const recent = []; // últimos resultados (en memoria)
-
-    function getMachineName(value){
-      const opt = machineSelect.querySelector(`option[value="${value}"]`);
-      return opt ? opt.textContent.trim() : value;
-    }
-
-    function setPill(text){
-      statusPill.textContent = text;
-    }
-
-    function updateHint(){
-      const m = machineSelect.value;
-      const count = data[m] ? Object.keys(data[m]).length : 0;
-      hintCount.textContent = `Códigos guardados en esta máquina: ${count}`;
-    }
-
-    function showResult({ ok, machine, code, solution }){
-      resultBox.classList.add("show");
-      outMachine.textContent = machine;
-      outCode.textContent = code;
-
-      if (ok){
-        dot.classList.remove("bad");
-        badgeText.textContent = "Encontrado ✅";
-        outSolution.textContent = solution;
-        setPill("Listo ✅ Encontrado");
-      } else {
-        dot.classList.add("bad");
-        badgeText.textContent = "No encontrado ❌";
-        outSolution.textContent = "No hay solución guardada para ese código (todavía).";
-        setPill("Listo ⚠️ No encontrado");
+        // merge seguro
+        const st = deepClone(baseState);
+        if(parsed.codes && typeof parsed.codes === "object"){
+          for(const m of Object.keys(st.codes)){
+            if(parsed.codes[m] && typeof parsed.codes[m] === "object") st.codes[m] = parsed.codes[m];
+          }
+        }
+        if(Array.isArray(parsed.inventory)) st.inventory = parsed.inventory;
+        return st;
+      }catch{
+        return deepClone(baseState);
       }
     }
 
-    function addRecent({ ok, machine, code, solution }){
-      recent.unshift({ ok, machine, code, solution });
-      if (recent.length > 6) recent.pop();
-      renderRecent();
-    }
+    let state = loadState();
 
-    function renderRecent(){
-      recentList.innerHTML = "";
-      if (recent.length === 0){
-        emptyRecent.style.display = "block";
-        return;
-      }
-      emptyRecent.style.display = "none";
-
-      for (const item of recent){
-        const li = document.createElement("li");
-        li.className = "item";
-        li.innerHTML = `
-          <div class="itemTop">
-            <div>
-              <div class="itemCode">${escapeHtml(item.code)} ${item.ok ? "✅" : "❌"}</div>
-              <div class="itemMachine">${escapeHtml(item.machine)}</div>
-            </div>
-          </div>
-          <div class="itemSol">${escapeHtml(item.ok ? item.solution : "Sin solución guardada")}</div>
-        `;
-        recentList.appendChild(li);
-      }
+    function saveState(){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      refreshToolsCounts();
     }
 
     function escapeHtml(str){
@@ -485,60 +563,509 @@
         .replaceAll("'","&#039;");
     }
 
-    // ====== Buscar ======
-    function searchCode(){
-      const machineKey = machineSelect.value;
-      const machineName = getMachineName(machineKey);
+    function uid(){
+      return Math.random().toString(16).slice(2) + "-" + Date.now().toString(16);
+    }
 
-      const raw = codeInput.value.trim();
-      const code = raw.toUpperCase();
+    function machineLabel(key){
+      const m = MACHINES.find(x => x.key === key);
+      return m ? m.label : key;
+    }
 
-      if (!code){
+    function fillMachineSelect(selectEl, includeAll=false){
+      selectEl.innerHTML = "";
+      if(includeAll){
+        const opt = document.createElement("option");
+        opt.value = "ALL";
+        opt.textContent = "Todas";
+        selectEl.appendChild(opt);
+      }
+      for(const m of MACHINES){
+        const opt = document.createElement("option");
+        opt.value = m.key;
+        opt.textContent = m.label;
+        selectEl.appendChild(opt);
+      }
+    }
+
+    // ===================== TABS =====================
+    const tabCodes = document.getElementById("tabCodes");
+    const tabInv = document.getElementById("tabInv");
+    const tabTools = document.getElementById("tabTools");
+
+    const sectionCodes = document.getElementById("sectionCodes");
+    const sectionInv = document.getElementById("sectionInv");
+    const sectionTools = document.getElementById("sectionTools");
+
+    const statusPill = document.getElementById("statusPill");
+    function setPill(t){ statusPill.textContent = t; }
+
+    function setActiveTab(which){
+      for(const t of [tabCodes, tabInv, tabTools]) t.classList.remove("active");
+      for(const s of [sectionCodes, sectionInv, sectionTools]) s.classList.remove("active");
+
+      if(which === "codes"){ tabCodes.classList.add("active"); sectionCodes.classList.add("active"); setPill("Códigos ✅"); }
+      if(which === "inv"){ tabInv.classList.add("active"); sectionInv.classList.add("active"); setPill("Inventario ✅"); renderInventoryList(); }
+      if(which === "tools"){ tabTools.classList.add("active"); sectionTools.classList.add("active"); setPill("Herramientas ✅"); refreshToolsCounts(); }
+    }
+
+    tabCodes.addEventListener("click", () => setActiveTab("codes"));
+    tabInv.addEventListener("click", () => setActiveTab("inv"));
+    tabTools.addEventListener("click", () => setActiveTab("tools"));
+
+    // ===================== CÓDIGOS (UI) =====================
+    const codesMachine = document.getElementById("codesMachine");
+    const codesCode = document.getElementById("codesCode");
+    const btnCodesSearch = document.getElementById("btnCodesSearch");
+    const btnCodesClear = document.getElementById("btnCodesClear");
+    const codesCountHint = document.getElementById("codesCountHint");
+
+    const codesResult = document.getElementById("codesResult");
+    const codesDot = document.getElementById("codesDot");
+    const codesBadgeText = document.getElementById("codesBadgeText");
+    const codesOutMachine = document.getElementById("codesOutMachine");
+    const codesOutCode = document.getElementById("codesOutCode");
+    const codesOutSolution = document.getElementById("codesOutSolution");
+
+    const codesMachineSave = document.getElementById("codesMachineSave");
+    const codesCodeSave = document.getElementById("codesCodeSave");
+    const codesSolutionSave = document.getElementById("codesSolutionSave");
+    const btnCodesSave = document.getElementById("btnCodesSave");
+    const btnCodesLoad = document.getElementById("btnCodesLoad");
+    const codesSaveHint = document.getElementById("codesSaveHint");
+
+    const codesRecentList = document.getElementById("codesRecentList");
+    const codesEmptyRecent = document.getElementById("codesEmptyRecent");
+    const codesRecent = [];
+
+    function updateCodesHint(){
+      const m = codesMachine.value;
+      const count = Object.keys(state.codes[m] || {}).length;
+      codesCountHint.textContent = `Códigos guardados aquí: ${count}`;
+    }
+
+    function showCodesResult(ok, machineKey, code, solution){
+      codesResult.classList.add("show");
+      codesOutMachine.textContent = machineLabel(machineKey);
+      codesOutCode.textContent = code;
+
+      if(ok){
+        codesDot.classList.remove("bad");
+        codesBadgeText.textContent = "Encontrado ✅";
+        codesOutSolution.textContent = solution;
+        setPill("Encontrado ✅");
+      }else{
+        codesDot.classList.add("bad");
+        codesBadgeText.textContent = "No encontrado ❌";
+        codesOutSolution.textContent = "No hay solución guardada para ese código (todavía).";
+        setPill("No encontrado ⚠️");
+      }
+    }
+
+    function addCodesRecent(item){
+      codesRecent.unshift(item);
+      if(codesRecent.length > 8) codesRecent.pop();
+      renderCodesRecent();
+    }
+
+    function renderCodesRecent(){
+      codesRecentList.innerHTML = "";
+      if(codesRecent.length === 0){
+        codesEmptyRecent.style.display = "block";
+        return;
+      }
+      codesEmptyRecent.style.display = "none";
+
+      for(const it of codesRecent){
+        const li = document.createElement("li");
+        li.className = "item";
+        li.innerHTML = `
+          <div class="itemLeft">
+            <div class="itemTopLine">
+              <span class="codeStrong">${escapeHtml(it.code)} ${it.ok ? "✅" : "❌"}</span>
+              <span class="pillMini">${escapeHtml(machineLabel(it.machineKey))}</span>
+            </div>
+            <div class="desc">${escapeHtml(it.ok ? it.solution : "Sin solución guardada")}</div>
+          </div>
+          <div class="miniBtns">
+            <button class="btn btnGhost miniBtn" data-action="edit" data-machine="${escapeHtml(it.machineKey)}" data-code="${escapeHtml(it.code)}">Editar</button>
+            <button class="btn btnDanger miniBtn" data-action="del" data-machine="${escapeHtml(it.machineKey)}" data-code="${escapeHtml(it.code)}">Borrar</button>
+          </div>
+        `;
+        codesRecentList.appendChild(li);
+      }
+    }
+
+    function codesSearch(){
+      const machineKey = codesMachine.value;
+      const code = codesCode.value.trim().toUpperCase();
+      if(!code){
         setPill("Escribe un código 👀");
-        resultBox.classList.remove("show");
-        codeInput.focus();
+        codesResult.classList.remove("show");
+        codesCode.focus();
         return;
       }
 
-      const found = !!(data[machineKey] && data[machineKey][code]);
-      if (found){
-        const solution = data[machineKey][code];
-        showResult({ ok: true, machine: machineName, code, solution });
-        addRecent({ ok: true, machine: machineName, code, solution });
-      } else {
-        showResult({ ok: false, machine: machineName, code, solution: "" });
-        addRecent({ ok: false, machine: machineName, code, solution: "" });
+      const map = state.codes[machineKey] || {};
+      const found = Object.prototype.hasOwnProperty.call(map, code);
+      if(found){
+        const sol = map[code];
+        showCodesResult(true, machineKey, code, sol);
+        addCodesRecent({ ok:true, machineKey, code, solution: sol });
+      }else{
+        showCodesResult(false, machineKey, code, "");
+        addCodesRecent({ ok:false, machineKey, code, solution: "" });
       }
     }
 
-    function clearAll(){
-      codeInput.value = "";
-      resultBox.classList.remove("show");
-      setPill("Listo para buscar ✅");
-      codeInput.focus();
+    function codesClear(){
+      codesCode.value = "";
+      codesResult.classList.remove("show");
+      codesSaveHint.textContent = "";
+      setPill("Códigos ✅");
+      codesCode.focus();
     }
 
-    // ====== Eventos ======
-    btnBuscar.addEventListener("click", searchCode);
-    btnLimpiar.addEventListener("click", clearAll);
+    function codesLoadExisting(){
+      const m = codesMachineSave.value;
+      const code = codesCodeSave.value.trim().toUpperCase();
+      if(!code){
+        codesSaveHint.textContent = "Pon un código primero.";
+        return;
+      }
+      const map = state.codes[m] || {};
+      if(map[code]){
+        codesSolutionSave.value = map[code];
+        codesSaveHint.textContent = "Listo: cargué la solución existente. Edita y guarda.";
+        setPill("Cargado ✍️");
+      }else{
+        codesSaveHint.textContent = "Ese código no existe todavía en esa máquina.";
+        setPill("No existe ⚠️");
+      }
+    }
 
-    codeInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") searchCode();
+    function codesSave(){
+      const m = codesMachineSave.value;
+      const code = codesCodeSave.value.trim().toUpperCase();
+      const sol = codesSolutionSave.value.trim();
+
+      if(!code){ codesSaveHint.textContent = "Falta el código."; codesCodeSave.focus(); return; }
+      if(!sol){ codesSaveHint.textContent = "Falta la solución."; codesSolutionSave.focus(); return; }
+
+      if(!state.codes[m]) state.codes[m] = {};
+      const existed = !!state.codes[m][code];
+      state.codes[m][code] = sol;
+      saveState();
+      updateCodesHint();
+
+      codesSaveHint.textContent = existed ? "Actualizado ✅" : "Guardado ✅";
+      setPill("Guardado ✅");
+      addCodesRecent({ ok:true, machineKey:m, code, solution: sol });
+    }
+
+    function codesDelete(machineKey, code){
+      const map = state.codes[machineKey] || {};
+      if(!map[code]) return;
+      if(!confirm(`¿Borrar ${code} de ${machineLabel(machineKey)}?`)) return;
+      delete map[code];
+      saveState();
+      updateCodesHint();
+      setPill("Borrado 🗑️");
+      codesResult.classList.remove("show");
+      renderCodesRecent(); // deja los recientes como estén; si quieres, luego limpiamos coincidencias
+    }
+
+    function codesEdit(machineKey, code){
+      codesMachineSave.value = machineKey;
+      codesCodeSave.value = code;
+      codesLoadExisting();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    codesRecentList.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-action]");
+      if(!btn) return;
+      const action = btn.getAttribute("data-action");
+      const m = btn.getAttribute("data-machine");
+      const c = btn.getAttribute("data-code");
+      if(action === "edit") codesEdit(m, c);
+      if(action === "del") codesDelete(m, c);
     });
 
-    machineSelect.addEventListener("change", () => {
-      updateHint();
-      setPill("Listo para buscar ✅");
-      resultBox.classList.remove("show");
+    btnCodesSearch.addEventListener("click", codesSearch);
+    btnCodesClear.addEventListener("click", codesClear);
+    btnCodesLoad.addEventListener("click", codesLoadExisting);
+    btnCodesSave.addEventListener("click", codesSave);
+    codesCode.addEventListener("keydown", (e) => { if(e.key === "Enter") codesSearch(); });
+    codesMachine.addEventListener("change", () => { updateCodesHint(); setPill("Códigos ✅"); codesResult.classList.remove("show"); });
+
+    // ===================== INVENTARIO =====================
+    const invFilterMachine = document.getElementById("invFilterMachine");
+    const invSearch = document.getElementById("invSearch");
+    const invCountHint = document.getElementById("invCountHint");
+
+    const invMachine = document.getElementById("invMachine");
+    const invName = document.getElementById("invName");
+    const invPartNo = document.getElementById("invPartNo");
+    const invQty = document.getElementById("invQty");
+    const invLocation = document.getElementById("invLocation");
+    const invPhotoUrl = document.getElementById("invPhotoUrl");
+    const invDesc = document.getElementById("invDesc");
+
+    const btnInvSave = document.getElementById("btnInvSave");
+    const btnInvLoad = document.getElementById("btnInvLoad");
+    const btnInvClear = document.getElementById("btnInvClear");
+    const invSaveHint = document.getElementById("invSaveHint");
+
+    const invList = document.getElementById("invList");
+    const invEmpty = document.getElementById("invEmpty");
+
+    function invClearForm(){
+      invName.value = "";
+      invPartNo.value = "";
+      invQty.value = "";
+      invLocation.value = "";
+      invPhotoUrl.value = "";
+      invDesc.value = "";
+      invSaveHint.textContent = "";
+      setPill("Inventario ✅");
+      invName.focus();
+    }
+
+    function invFindExisting(machineKey, partNo){
+      const pn = (partNo || "").trim().toUpperCase();
+      if(!pn) return null;
+      return state.inventory.find(x => x.machineKey === machineKey && (x.partNo || "").toUpperCase() === pn) || null;
+    }
+
+    function invLoadExisting(){
+      const m = invMachine.value;
+      const pn = invPartNo.value.trim();
+      if(!pn){
+        invSaveHint.textContent = "Pon un #Parte primero para cargar.";
+        return;
+      }
+      const item = invFindExisting(m, pn);
+      if(item){
+        invName.value = item.name || "";
+        invQty.value = item.qty ?? "";
+        invLocation.value = item.location || "";
+        invPhotoUrl.value = item.photoUrl || "";
+        invDesc.value = item.desc || "";
+        invSaveHint.textContent = "Listo: cargué esa pieza. Edita y guarda.";
+        setPill("Cargado ✍️");
+      }else{
+        invSaveHint.textContent = "No encontré esa pieza con ese #Parte en esa máquina.";
+        setPill("No existe ⚠️");
+      }
+    }
+
+    function invSave(){
+      const machineKey = invMachine.value;
+      const name = invName.value.trim();
+      const partNoRaw = invPartNo.value.trim();
+      const partNo = partNoRaw ? partNoRaw.toUpperCase() : "";
+      const qty = Number(invQty.value);
+      const location = invLocation.value.trim();
+      const photoUrl = invPhotoUrl.value.trim();
+      const desc = invDesc.value.trim();
+
+      if(!name){
+        invSaveHint.textContent = "Falta el nombre de la pieza.";
+        invName.focus(); return;
+      }
+      if(!Number.isFinite(qty) || qty < 0){
+        invSaveHint.textContent = "Cantidad inválida. Usa un número (0 o más).";
+        invQty.focus(); return;
+      }
+
+      // Si hay #Parte: actualiza por (máquina + #parte). Si no hay #parte, crea nuevo siempre.
+      let existing = null;
+      if(partNo) existing = invFindExisting(machineKey, partNo);
+
+      if(existing){
+        existing.name = name;
+        existing.qty = qty;
+        existing.location = location;
+        existing.photoUrl = photoUrl;
+        existing.desc = desc;
+        invSaveHint.textContent = "Actualizado ✅ (ya existía por #Parte).";
+      }else{
+        state.inventory.push({
+          id: uid(),
+          machineKey,
+          name,
+          partNo,
+          qty,
+          location,
+          photoUrl,
+          desc
+        });
+        invSaveHint.textContent = "Guardado ✅ (pieza nueva).";
+      }
+
+      saveState();
+      renderInventoryList();
+      setPill("Guardado ✅");
+    }
+
+    function invDelete(id){
+      const idx = state.inventory.findIndex(x => x.id === id);
+      if(idx < 0) return;
+      const it = state.inventory[idx];
+      if(!confirm(`¿Borrar "${it.name}" de ${machineLabel(it.machineKey)}?`)) return;
+      state.inventory.splice(idx, 1);
+      saveState();
+      renderInventoryList();
+      setPill("Borrado 🗑️");
+    }
+
+    function invEdit(id){
+      const it = state.inventory.find(x => x.id === id);
+      if(!it) return;
+      invMachine.value = it.machineKey;
+      invName.value = it.name || "";
+      invPartNo.value = it.partNo || "";
+      invQty.value = it.qty ?? "";
+      invLocation.value = it.location || "";
+      invPhotoUrl.value = it.photoUrl || "";
+      invDesc.value = it.desc || "";
+      invSaveHint.textContent = "Editando: cambia y dale Guardar pieza.";
+      setPill("Editando ✍️");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function inventoryFiltered(){
+      const filterM = invFilterMachine.value;
+      const q = invSearch.value.trim().toLowerCase();
+
+      return state.inventory
+        .filter(it => (filterM === "ALL" ? true : it.machineKey === filterM))
+        .filter(it => {
+          if(!q) return true;
+          const hay = `${it.name||""} ${it.partNo||""} ${it.location||""} ${it.desc||""}`.toLowerCase();
+          return hay.includes(q);
+        })
+        .sort((a,b) => {
+          const ma = machineLabel(a.machineKey).toLowerCase();
+          const mb = machineLabel(b.machineKey).toLowerCase();
+          if(ma !== mb) return ma.localeCompare(mb);
+          return (a.name||"").toLowerCase().localeCompare((b.name||"").toLowerCase());
+        });
+    }
+
+    function renderInventoryList(){
+      const items = inventoryFiltered();
+
+      invList.innerHTML = "";
+      invEmpty.style.display = items.length ? "none" : "block";
+      invCountHint.textContent = `Piezas mostradas: ${items.length} (Total guardadas: ${state.inventory.length})`;
+
+      for(const it of items){
+        const li = document.createElement("li");
+        li.className = "item";
+
+        const thumb = document.createElement("div");
+        thumb.className = "imgThumb";
+        if(it.photoUrl){
+          thumb.innerHTML = `<img src="${escapeHtml(it.photoUrl)}" alt="foto pieza">`;
+        }else{
+          thumb.textContent = "sin foto";
+        }
+
+        const left = document.createElement("div");
+        left.className = "itemLeft";
+        left.innerHTML = `
+          <div class="itemTopLine">
+            <span class="pillMini">${escapeHtml(machineLabel(it.machineKey))}</span>
+            <span class="pillMini">Qty: ${escapeHtml(it.qty)}</span>
+            ${it.partNo ? `<span class="pillMini">PN: ${escapeHtml(it.partNo)}</span>` : ``}
+          </div>
+          <div class="desc"><span class="codeStrong">${escapeHtml(it.name)}</span></div>
+          <div class="muted">${it.location ? `Ubicación: ${escapeHtml(it.location)}` : `Ubicación: (sin)`}</div>
+          ${it.desc ? `<div class="desc">${escapeHtml(it.desc)}</div>` : ``}
+        `;
+
+        const btns = document.createElement("div");
+        btns.className = "miniBtns";
+        btns.innerHTML = `
+          <button class="btn btnGhost miniBtn" data-action="edit" data-id="${escapeHtml(it.id)}">Editar</button>
+          <button class="btn btnDanger miniBtn" data-action="del" data-id="${escapeHtml(it.id)}">Borrar</button>
+        `;
+
+        li.appendChild(thumb);
+        li.appendChild(left);
+        li.appendChild(btns);
+        invList.appendChild(li);
+      }
+    }
+
+    invList.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-action]");
+      if(!btn) return;
+      const action = btn.getAttribute("data-action");
+      const id = btn.getAttribute("data-id");
+      if(action === "edit") invEdit(id);
+      if(action === "del") invDelete(id);
     });
 
-    // ====== Init ======
-    updateHint();
-    renderRecent();
-    setPill("Listo para buscar ✅");
+    btnInvSave.addEventListener("click", invSave);
+    btnInvLoad.addEventListener("click", invLoadExisting);
+    btnInvClear.addEventListener("click", invClearForm);
+
+    invFilterMachine.addEventListener("change", renderInventoryList);
+    invSearch.addEventListener("input", renderInventoryList);
+
+    // ===================== TOOLS =====================
+    const btnResetAll = document.getElementById("btnResetAll");
+    const toolsCodesCount = document.getElementById("toolsCodesCount");
+    const toolsInvCount = document.getElementById("toolsInvCount");
+
+    function countAllCodes(){
+      let total = 0;
+      for(const m of Object.keys(state.codes)){
+        total += Object.keys(state.codes[m] || {}).length;
+      }
+      return total;
+    }
+
+    function refreshToolsCounts(){
+      toolsCodesCount.textContent = String(countAllCodes());
+      toolsInvCount.textContent = String(state.inventory.length);
+    }
+
+    btnResetAll.addEventListener("click", () => {
+      if(!confirm("Esto borra TODO lo guardado en este navegador. ¿Seguro?")) return;
+      localStorage.removeItem(STORAGE_KEY);
+      state = loadState();
+      // reset UI
+      codesRecent.length = 0;
+      renderCodesRecent();
+      renderInventoryList();
+      updateCodesHint();
+      refreshToolsCounts();
+      setPill("Reset ✅");
+      alert("Listo. Se borró lo guardado y volvió a los datos base.");
+    });
+
+    // ===================== INIT =====================
+    // llenar selects de máquinas
+    fillMachineSelect(codesMachine);
+    fillMachineSelect(codesMachineSave);
+    fillMachineSelect(invMachine);
+    fillMachineSelect(invFilterMachine, true);
+
+    // default selections
+    codesMachine.value = "mega";
+    codesMachineSave.value = "mega";
+    invMachine.value = "mega";
+    invFilterMachine.value = "ALL";
+
+    updateCodesHint();
+    renderCodesRecent();
+    renderInventoryList();
+    refreshToolsCounts();
+    setPill("Códigos ✅");
   </script>
 </body>
 </html>
-
-
-
