@@ -3,9 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <title>Machine Error Codes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    select, input, button {
+      padding: 8px;
+      margin: 5px 0;
+      width: 100%;
+      max-width: 400px;
+    }
+    .result {
+      background: white;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
+
   <h1>Machine Error Codes</h1>
-  <p>Bienvenido bro, aquí irán los códigos de error.</p>
+
+  <label>Machine:</label>
+  <select id="machine">
+    <option value="mega">Mega Slicer</option>
+    <option value="repak">Repak</option>
+    <option value="supervac">Super Vac</option>
+    <option value="cashin">Cashin</option>
+  </select>
+
+  <label>Error Code:</label>
+  <input type="text" id="code" placeholder="Ej: E404">
+
+  <button onclick="searchCode()">Search</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    const data = {
+      mega: {
+        E101: "Sensor de cuchilla desconectado",
+        E202: "Motor sobrecalentado"
+      },
+      repak: {
+        R404: "Error de sellado"
+      }
+    };
+
+    function searchCode() {
+      const machine = document.getElementById("machine").value;
+      const code = document.getElementById("code").value.toUpperCase();
+      const result = document.getElementById("result");
+
+      if (data[machine] && data[machine][code]) {
+        result.innerHTML = "<strong>Solution:</strong> " + data[machine][code];
+      } else {
+        result.innerHTML = "Code not found.";
+      }
+    }
+  </script>
+
 </body>
 </html>
