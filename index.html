@@ -9,20 +9,33 @@
       background: #f4f4f4;
       padding: 20px;
     }
+
     h1 {
       color: #333;
     }
+
+    label {
+      font-weight: bold;
+    }
+
     select, input, button {
       padding: 8px;
-      margin: 5px 0;
+      margin: 6px 0;
       width: 100%;
       max-width: 400px;
+      box-sizing: border-box;
     }
+
+    button {
+      cursor: pointer;
+    }
+
     .result {
       background: white;
       padding: 15px;
       margin-top: 15px;
       border-radius: 5px;
+      max-width: 400px;
     }
   </style>
 </head>
@@ -30,21 +43,60 @@
 
   <h1>Códigos de Error de Máquinas</h1>
 
-  <label>Máquina:</label>
+  <label>Máquina:</label><br>
   <select id="machine">
     <option value="mega">Mega Slicer</option>
     <option value="repak">Repak</option>
-    <option value="supervac">Super Vac</option>
     <option value="cashin">Cashin</option>
+    <option value="supervac">Super Vac</option>
+    <option value="metaldetector">Metal Detector</option>
+    <option value="alkar">Alkar</option>
+    <option value="mixer5000">Mixer 5000</option>
+    <option value="mixer2500">Mixer 2500</option>
   </select>
 
-  <label>Código de error:</label>
+  <br>
+
+  <label>Código de error:</label><br>
   <input type="text" id="code" placeholder="Ejemplo: E101">
+
+  <br>
 
   <button onclick="searchCode()">Buscar</button>
 
   <div class="result" id="result"></div>
 
   <script>
-    const data
+    const data = {
+      mega: {
+        E101: "Sensor de cuchilla desconectado",
+        E202: "Motor sobrecalentado"
+      },
+      repak: {
+        R404: "Error de sellado"
+      },
+      cashin: {},
+      supervac: {},
+      metaldetector: {},
+      alkar: {},
+      mixer5000: {},
+      mixer2500: {}
+    };
+
+    function searchCode() {
+      const machine = document.getElementById("machine").value;
+      const code = document.getElementById("code").value.toUpperCase();
+      const result = document.getElementById("result");
+
+      if (data[machine] && data[machine][code]) {
+        result.innerHTML = "<strong>Solución:</strong> " + data[machine][code];
+      } else {
+        result.innerHTML = "Código no encontrado.";
+      }
+    }
+  </script>
+
+</body>
+</html>
+
 
