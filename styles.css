@@ -25,4 +25,68 @@ header{
   cursor:pointer;
 }
 
-/* (Archivo completo continúa...) */
+/* ===================== HEADER ===================== */
+#appHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: rgba(10, 15, 35, 0.95);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.headerRight .langBtn {
+  margin-left: 6px;
+  padding: 6px 10px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  cursor: pointer;
+}
+
+/* ===================== NAV ===================== */
+.nav {
+  display: flex;
+  gap: 10px;
+  padding: 14px 20px;
+  background: rgba(255,255,255,0.03);
+}
+
+.navBtn {
+  padding: 8px 14px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  cursor: pointer;
+}
+
+.navBtn:hover {
+  background: rgba(255, 60, 90, 0.4);
+}
+
+/* ===================== CONTENT ===================== */
+#view {
+  padding: 20px;
+}
+
+.welcome {
+  opacity: 0.85;
+}
+
