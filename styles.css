@@ -215,3 +215,76 @@ header{
   margin-top: 8px;
   border: 1px solid rgba(255,255,255,0.12);
 }
+
+body{
+  font-family: Arial, sans-serif;
+  background: #0b1020;
+  color: white;
+  margin:0;
+}
+
+#appHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 20px;
+  background: rgba(10,15,35,0.95);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.headerLeft{display:flex;align-items:center;gap:14px}
+.logo{width:72px;height:72px;object-fit:contain}
+.title{font-size:1.4rem;font-weight:600}
+
+.nav{
+  display:flex;
+  gap:10px;
+  padding:14px 20px;
+  background: rgba(255,255,255,0.03);
+}
+
+.navBtn{
+  padding:8px 14px;
+  border:none;
+  background: rgba(255,255,255,0.10);
+  color:white;
+  cursor:pointer;
+  border-radius:10px;
+}
+
+.navBtn:hover{background: rgba(255,60,90,0.4)}
+
+#view{padding:20px}
+
+.card{
+  background: rgba(255,255,255,0.06);
+  padding:20px;
+  border-radius:14px;
+  max-width:520px;
+  margin-bottom:20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.card input,.card select{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  background: rgba(0,0,0,0.30);
+  color:white;
+  margin-top:6px;
+}
+
+.primaryBtn{
+  margin-top:16px;
+  padding:12px;
+  width:100%;
+  border:none;
+  border-radius:10px;
+  background: linear-gradient(135deg,#ff3c5f,#ff6a3d);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.primaryBtn:hover{opacity:.9}
