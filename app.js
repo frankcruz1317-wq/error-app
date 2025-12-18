@@ -163,3 +163,74 @@ function renderAdminHome() {
 renderHeader();
 renderNav();
 renderHome();
+
+/* ===================== VISTA: BUSCAR CÓDIGO ===================== */
+
+function renderCodesHome() {
+  const view = document.getElementById("view");
+
+  view.innerHTML = `
+    <div class="card">
+      <h2>🔍 ${state.lang === "es" ? "Buscar código de error" : "Search error code"}</h2>
+
+      <label>${state.lang === "es" ? "Máquina" : "Machine"}</label>
+      <select id="codeMachine">
+        ${MACHINES.map(m =>
+          `<option value="${m.id}">${m.name}</option>`
+        ).join("")}
+      </select>
+
+      <label>${state.lang === "es" ? "Código" : "Code"}</label>
+      <input id="codeInput" placeholder="Ej: E101">
+
+      <button class="primaryBtn" onclick="searchCode()">
+        ${state.lang === "es" ? "Buscar" : "Search"}
+      </button>
+    </div>
+
+    <div id="codeResult"></div>
+  `;
+}
+
+function searchCode() {
+  const machine = document.getElementById("codeMachine").value;
+  const code = document.getElementById("codeInput").value.toUpperCase();
+  const result = document.getElementById("codeResult");
+
+  if (
+    !state.codes[machine] ||
+    !state.codes[machine][code]
+  ) {
+    result.innerHTML = `
+      <div class="card error">
+        ❌ ${state.lang === "es"
+          ? "Código no encontrado"
+          : "Code not found"}
+      </div>
+    `;
+    return;
+  }
+
+  const data = state.codes[machine][code];
+
+  result.innerHTML = `
+    <div class="card success">
+      <h3>${machineName(machine)} – ${code}</h3>
+
+      <p><strong>${state.lang === "es" ? "Solución" : "Solution"}:</strong></p>
+      <p>${data.solution[state.lang]}</p>
+
+      <p><strong>${state.lang === "es"
+        ? "Piezas típicas"
+        : "Typical parts"}:</strong></p>
+      <p>${data.defaultParts?.join(", ") || "-"}</p>
+
+      <p class="muted">
+        ${data.comments.length}
+        ${state.lang === "es"
+          ? "comentarios registrados"
+          : "comments logged"}
+      </p>
+    </div>
+  `;
+}
