@@ -90,3 +90,63 @@ header{
   opacity: 0.85;
 }
 
+/* ===================== CARDS ===================== */
+.card {
+  background: rgba(255,255,255,0.06);
+  padding: 20px;
+  border-radius: 14px;
+  max-width: 520px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.card h2, .card h3 {
+  margin-top: 0;
+}
+
+.card label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+
+.card input,
+.card select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(0,0,0,0.3);
+  color: white;
+}
+
+.primaryBtn {
+  margin-top: 16px;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff3c5f, #ff6a3d);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primaryBtn:hover {
+  opacity: 0.9;
+}
+
+.card.success {
+  border-left: 4px solid #4ade80;
+}
+
+.card.error {
+  border-left: 4px solid #f87171;
+}
+
+.muted {
+  opacity: 0.6;
+  font-size: 0.9rem;
+}
+
