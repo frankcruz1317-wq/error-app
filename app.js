@@ -1,9 +1,7 @@
 /* ===================== CONFIG ===================== */
-
 const STORAGE_KEY = "error_app_full_pro_v1";
 
 /* ===================== STATE ===================== */
-
 let state = {
   lang: "es",
   codes: {},
@@ -11,7 +9,6 @@ let state = {
 };
 
 /* ===================== MACHINES ===================== */
-
 const MACHINES = [
   { id: "mega", name: "Mega Slicer" },
   { id: "repak", name: "Repak" },
@@ -23,7 +20,6 @@ const MACHINES = [
 ];
 
 /* ===================== HELPERS ===================== */
-
 function machineName(id) {
   const m = MACHINES.find(m => m.id === id);
   return m ? m.name : id;
@@ -34,41 +30,89 @@ function save() {
 }
 
 function load() {
-  const data = localStorage.getItem(STORAGE_KEY);
-  if (data) state = JSON.parse(data);
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return;
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === "object") state = parsed;
+  } catch (e) {}
 }
 
 /* ===================== INIT ===================== */
-
 function init() {
   load();
+  renderHeader();
+  renderLayout();
   renderHome();
   console.log("FULL PRO APP READY", state);
 }
-
 init();
 
-/* ===================== NAV ===================== */
+/* ===================== HEADER ===================== */
+function renderHeader() {
+  const header = document.getElementById("appHeader");
+  if (!header) return;
 
-function go(view) {
-  if (view === "codes") renderCodesHome();
-  if (view === "inventory") renderInventory();
-  if (view === "admin") renderAdmin();
-}
+  header.innerHTML = `
+    <div class="headerLeft">
+      <a href="#" onclick="goHome(); return false;" class="logoLink">
+        <img src="logo.png" class="logo" alt="Logo">
+      </a>
+      <span class="title">${state.lang === "es" ? "Aplicación de Errores" : "Error Application"}</span>
+    </div>
 
-/* ===================== HOME ===================== */
-
-function renderHome() {
-  document.getElementById("view").innerHTML = `
-    <h1>Sistema de mantenimiento</h1>
-    <p>Selecciona una opción del menú</p>
+    <div class="headerRight">
+      <button class="langBtn" onclick="setLang('es')">ES</button>
+      <button class="langBtn" onclick="setLang('en')">EN</button>
+    </div>
   `;
 }
 
-/* ===================== CODES ===================== */
+function goHome() {
+  renderLayout();
+  renderHome();
+}
 
+/* ===================== LAYOUT (NAV + VIEW) ===================== */
+function renderLayout() {
+  const root = document.getElementById("appRoot");
+  if (!root) return;
+
+  root.innerHTML = `
+    <nav class="nav">
+      <button class="navBtn" onclick="go('codes')">${state.lang === "es" ? "Códigos" : "Codes"}</button>
+      <button class="navBtn" onclick="go('inventory')">${state.lang === "es" ? "Inventario" : "Inventory"}</button>
+      <button class="navBtn" onclick="go('admin')">Admin</button>
+    </nav>
+
+    <section id="view"></section>
+  `;
+}
+
+/* ===================== ROUTER ===================== */
+function go(view) {
+  if (view === "codes") renderCodesHome();
+  if (view === "inventory") renderInventoryHome();
+  if (view === "admin") renderAdminHome();
+}
+
+/* ===================== HOME ===================== */
+function renderHome() {
+  const view = document.getElementById("view");
+  if (!view) return;
+
+  view.innerHTML = `
+    <div class="welcome">
+      <h1>${state.lang === "es" ? "Sistema de mantenimiento" : "Maintenance system"}</h1>
+      <p>${state.lang === "es" ? "Selecciona una opción del menú" : "Select an option from the menu"}</p>
+    </div>
+  `;
+}
+
+/* ===================== CODES VIEW ===================== */
 function renderCodesHome() {
   const view = document.getElementById("view");
+  if (!view) return;
 
   view.innerHTML = `
     <div class="card">
@@ -76,9 +120,7 @@ function renderCodesHome() {
 
       <label>${state.lang === "es" ? "Máquina" : "Machine"}</label>
       <select id="codeMachine">
-        ${MACHINES.map(m =>
-          `<option value="${m.id}">${m.name}</option>`
-        ).join("")}
+        ${MACHINES.map(m => `<option value="${m.id}">${m.name}</option>`).join("")}
       </select>
 
       <label>${state.lang === "es" ? "Código" : "Code"}</label>
@@ -94,78 +136,64 @@ function renderCodesHome() {
 }
 
 function searchCode() {
-  const machine = document.getElementById("codeMachine").value;
-  const code = document.getElementById("codeInput").value.toUpperCase();
+  const machine = document.getElementById("codeMachine")?.value;
+  const code = document.getElementById("codeInput")?.value?.toUpperCase();
   const result = document.getElementById("codeResult");
+  if (!result || !machine || !code) return;
 
   if (!state.codes[machine] || !state.codes[machine][code]) {
-    result.innerHTML = `
-      <div class="card error">
-        ❌ ${state.lang === "es" ? "Código no encontrado" : "Code not found"}
-      </div>
-    `;
+    result.innerHTML = `<div class="card error">❌ ${state.lang === "es" ? "Código no encontrado" : "Code not found"}</div>`;
     return;
   }
 
   const data = state.codes[machine][code];
-
   result.innerHTML = `
     <div class="card success">
       <h3>${machineName(machine)} – ${code}</h3>
 
       <p><strong>${state.lang === "es" ? "Solución" : "Solution"}:</strong></p>
-      <p>${data.solution[state.lang]}</p>
+      <p>${data.solution?.[state.lang] ?? "-"}</p>
 
       <p><strong>${state.lang === "es" ? "Piezas típicas" : "Typical parts"}:</strong></p>
-      <p>${data.defaultParts?.join(", ") || "-"}</p>
+      <p>${(data.defaultParts && data.defaultParts.length) ? data.defaultParts.join(", ") : "-"}</p>
 
       <p class="muted">
-        ${data.comments.length}
-        ${state.lang === "es" ? "comentarios registrados" : "comments logged"}
+        ${(data.comments?.length ?? 0)} ${state.lang === "es" ? "comentarios registrados" : "comments logged"}
       </p>
     </div>
   `;
 }
 
-/* ===================== SAVE CODE ===================== */
-
+/* ===================== DATA API ===================== */
 function saveCode(machine, code, es, en, parts = []) {
   if (!state.codes[machine]) state.codes[machine] = {};
-
   state.codes[machine][code] = {
     solution: { es, en },
     defaultParts: parts,
     comments: []
   };
-
   save();
 }
 
-/* ===================== INVENTORY ===================== */
-
-function renderInventory() {
-  document.getElementById("view").innerHTML = `
-    <h2>Inventario</h2>
-    <p>Próximamente</p>
-  `;
+/* ===================== OTHER VIEWS ===================== */
+function renderInventoryHome() {
+  const view = document.getElementById("view");
+  if (!view) return;
+  view.innerHTML = `<h2>📦 ${state.lang === "es" ? "Inventario" : "Inventory"}</h2><p>${state.lang === "es" ? "Próximamente" : "Coming soon"}</p>`;
 }
 
-/* ===================== ADMIN ===================== */
-
-function renderAdmin() {
-  document.getElementById("view").innerHTML = `
-    <h2>Admin</h2>
-    <p>Próximamente</p>
-  `;
+function renderAdminHome() {
+  const view = document.getElementById("view");
+  if (!view) return;
+  view.innerHTML = `<h2>🛠️ Admin</h2><p>${state.lang === "es" ? "Próximamente" : "Coming soon"}</p>`;
 }
 
-/* ===================== LANGUAGE ===================== */
-
+/* ===================== LANG ===================== */
 function setLang(lang) {
   state.lang = lang;
   save();
+  renderHeader();
+  renderLayout();
   renderHome();
 }
-
-
 
