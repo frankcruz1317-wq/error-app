@@ -87,3 +87,79 @@ init();
 FIN APP.JS FULL PRO
 ====================================================== */
 
+/* ===================== UI: HEADER + NAV ===================== */
+
+function renderHeader() {
+  const header = document.getElementById("appHeader");
+
+  header.innerHTML = `
+    <div class="headerLeft">
+      <img src="logo.png" class="logo" alt="Logo">
+      <span class="title">${state.lang === "es" ? "Aplicación de Errores" : "Error Application"}</span>
+    </div>
+
+    <div class="headerRight">
+      <button class="langBtn" onclick="setLang('es')">ES</button>
+      <button class="langBtn" onclick="setLang('en')">EN</button>
+    </div>
+  `;
+}
+
+function renderNav() {
+  const root = document.getElementById("appRoot");
+
+  root.innerHTML = `
+    <nav class="nav">
+      <button onclick="go('codes')" class="navBtn">Códigos</button>
+      <button onclick="go('inventory')" class="navBtn">Inventario</button>
+      <button onclick="go('admin')" class="navBtn">Admin</button>
+    </nav>
+
+    <section id="view"></section>
+  `;
+}
+
+function setLang(lang) {
+  state.lang = lang;
+  save();
+  renderHeader();
+  renderNav();
+  renderHome();
+}
+
+function go(view) {
+  if (view === "codes") renderCodesHome();
+  if (view === "inventory") renderInventoryHome();
+  if (view === "admin") renderAdminHome();
+}
+
+function renderHome() {
+  document.getElementById("view").innerHTML = `
+    <div class="welcome">
+      <h2>${state.lang === "es" ? "Sistema de mantenimiento" : "Maintenance system"}</h2>
+      <p>${state.lang === "es"
+        ? "Selecciona una opción del menú"
+        : "Select an option from the menu"}
+      </p>
+    </div>
+  `;
+}
+
+/* ====== VISTAS TEMPORALES (placeholder) ====== */
+
+function renderCodesHome() {
+  document.getElementById("view").innerHTML = `<h2>📟 Códigos de error</h2>`;
+}
+
+function renderInventoryHome() {
+  document.getElementById("view").innerHTML = `<h2>📦 Inventario</h2>`;
+}
+
+function renderAdminHome() {
+  document.getElementById("view").innerHTML = `<h2>🛠️ Administración</h2>`;
+}
+
+/* ===================== RE-INIT ===================== */
+renderHeader();
+renderNav();
+renderHome();
