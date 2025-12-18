@@ -243,3 +243,12 @@ saveCode(
   ["SEN-23", "CAB-11"]
 );
 
+saveCode(
+  "mega",
+  "E202",
+  "Motor sobrecalentado",
+  "Motor overheated",
+  ["MTR-09", "FAN-02"]
+);
+
+
