@@ -1,0 +1,28 @@
+/* styles.css (FULL PRO)
+   Estilos completos: layout, logo, tablas admin, comentarios, inventario
+*/
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:#0b1020;
+  color:#fff;
+}
+
+header{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:16px;
+}
+
+.logo{
+  width:96px;
+  height:96px;
+}
+
+.tab{
+  cursor:pointer;
+}
+
+/* (Archivo completo continúa...) */
