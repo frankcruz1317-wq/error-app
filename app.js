@@ -234,3 +234,12 @@ function searchCode() {
     </div>
   `;
 }
+
+saveCode(
+  "mega",
+  "E101",
+  "Sensor desconectado",
+  "Sensor disconnected",
+  ["SEN-23", "CAB-11"]
+);
+
